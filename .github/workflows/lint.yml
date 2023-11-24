@@ -3,9 +3,9 @@ name: Lint
 on:
   push:
     branches:
-      - "**"
+      - '**'
     tags-ignore:
-      - "v*"
+      - 'v*'
   pull_request:
     branches:
       - main
@@ -15,8 +15,6 @@ jobs:
     name: Super Linter
     uses: harryzcy/github-actions/.github/workflows/linter.yml@main
 
-  # prettier:
-  #   name: Prettier
-  #   uses: harryzcy/github-actions/.github/workflows/prettier.yml@main
-  #   with:
-  #     working-directory: web
+  prettier:
+    name: Prettier
+    uses: harryzcy/github-actions/.github/workflows/prettier.yml@main

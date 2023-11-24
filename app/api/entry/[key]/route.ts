@@ -5,6 +5,7 @@ import type { ConfigEntry, ConfigKey, Env } from '@/src/types'
 export const runtime = 'edge'
 
 export async function GET(req: Request) {
+  console.log('Handling GET request')
   let key: ConfigKey
   try {
     const url = new URL(req.url)
@@ -38,6 +39,8 @@ export async function GET(req: Request) {
 }
 
 export async function DELETE(req: Request) {
+  console.log('Handling DELETE request')
+
   let key: ConfigKey
   try {
     const url = new URL(req.url)

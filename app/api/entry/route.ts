@@ -5,6 +5,8 @@ import type { ConfigEntry, Env } from '@/src/types'
 export const runtime = 'edge'
 
 export async function POST(req: Request) {
+  console.log('Handling POST request')
+
   const body = await req.json()
 
   let value: ConfigEntry

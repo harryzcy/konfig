@@ -8,6 +8,10 @@ test('config key', () => {
       output: 'foo'
     },
     {
+      input: 'test',
+      output: 'test'
+    },
+    {
       input: 'foo:bar',
       errorMsg: 'invalid input: key cannot contain ":"'
     }

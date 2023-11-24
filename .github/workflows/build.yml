@@ -22,9 +22,20 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          check-latest: true
 
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Build
+      - name: Build Pages
         run: npm run pages:build
+
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: konfig
+          directory: .vercel/output/static
+          workingDirectory: cloudflare
+          wranglerVersion: "3"

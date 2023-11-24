@@ -1,4 +1,5 @@
 import { parseConfigKey, parseConfigValue } from '@/src/parse'
+import { errorResponse, jsonResponse, successResponse } from '@/src/response'
 import type { ConfigEntry, ConfigKey, Env } from '@/src/types'
 import { NextApiRequest } from 'next'
 
@@ -10,17 +11,7 @@ export async function GET(req: NextApiRequest) {
     key = parseConfigKey(req.query.key as string)
   } catch (e) {
     const error = e as Error
-    return new Response(
-      JSON.stringify({
-        message: error.message
-      }),
-      {
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8'
-        },
-        status: 400
-      }
-    )
+    return errorResponse(error)
   }
 
   const { CONFIG_KV } = process.env as unknown as Env
@@ -38,11 +29,7 @@ export async function GET(req: NextApiRequest) {
   const value = parseConfigValue(raw)
   const entry = { ...value, key } as ConfigEntry
 
-  return new Response(JSON.stringify(entry), {
-    headers: {
-      'Content-Type': 'application/json; charset=UTF-8'
-    }
-  })
+  return jsonResponse(entry)
 }
 
 export async function DELETE(req: NextApiRequest) {
@@ -51,26 +38,12 @@ export async function DELETE(req: NextApiRequest) {
     key = parseConfigKey(req.query.key as string)
   } catch (e) {
     const error = e as Error
-    return new Response(
-      JSON.stringify({
-        message: error.message
-      }),
-      {
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8'
-        },
-        status: 400
-      }
-    )
+    return errorResponse(error)
   }
 
   const { CONFIG_KV } = process.env as unknown as Env
 
   await CONFIG_KV.delete(`entry:${key}`)
 
-  return new Response('{"message":"success"}', {
-    headers: {
-      'Content-Type': 'application/json; charset=UTF-8'
-    }
-  })
+  return successResponse()
 }

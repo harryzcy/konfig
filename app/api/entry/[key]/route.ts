@@ -12,6 +12,7 @@ export async function GET(req: Request) {
     if (rawKey === undefined) {
       throw new Error('invalid input: key is undefined')
     }
+    console.log('Received request for key:', rawKey)
     key = parseConfigKey(rawKey)
   } catch (e) {
     const error = e as Error
@@ -44,6 +45,7 @@ export async function DELETE(req: Request) {
     if (rawKey === undefined) {
       throw new Error('invalid input: key is undefined')
     }
+    console.log('Received request for key:', rawKey)
     key = parseConfigKey(rawKey)
   } catch (e) {
     const error = e as Error

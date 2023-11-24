@@ -3,9 +3,9 @@ name: Build
 on:
   push:
     branches:
-      - "**"
+      - '**'
     tags-ignore:
-      - "v*"
+      - 'v*'
   pull_request:
     branches:
       - main
@@ -40,5 +40,4 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: konfig
           directory: .vercel/output/static
-          workingDirectory: cloudflare
-          wranglerVersion: "3"
+          wranglerVersion: '3'

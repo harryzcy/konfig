@@ -19,8 +19,9 @@ export async function POST(req: Request) {
 
   const { CONFIG_KV } = process.env as unknown as Env
 
-  const key = `entry:${value.key}`
-  await CONFIG_KV.put(key, JSON.stringify(value))
+  const key = console.log(`Storing key entry:${value.key} in KV`)
+  await CONFIG_KV.put(`entry:${value.key}`, JSON.stringify(value))
+  console.log(`Stored key entry:${value.key} in KV`)
 
   return successResponse()
 }

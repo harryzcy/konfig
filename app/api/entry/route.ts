@@ -11,7 +11,7 @@ export async function POST(req: Request) {
 
   let value: ConfigEntry
   try {
-    value = parseConfigEntry(body)
+    value = parseConfigEntry(await req.text())
   } catch (e) {
     const error = e as Error
     return errorResponse(error)

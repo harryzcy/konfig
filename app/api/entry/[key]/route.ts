@@ -35,7 +35,7 @@ export async function GET(req: Request) {
   }
   console.log(`Found key entry:${key} in KV`)
 
-  const value = parseConfigValue(JSON.parse(raw))
+  const value = parseConfigValue(raw)
   const entry = { ...value, key } as ConfigEntry
   console.log(`Returning key entry:${key} from KV`)
 

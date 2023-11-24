@@ -59,7 +59,7 @@ test('config value', () => {
   for (const testCase of testCases) {
     let hasError = false
     try {
-      const value = parseConfigValue(JSON.parse(testCase.input))
+      const value = parseConfigValue(testCase.input)
       expect(value).toEqual(testCase.output)
     } catch (err) {
       const error = err as Error
@@ -98,7 +98,7 @@ test('config schema', () => {
   for (const testCase of testCases) {
     let hasError = false
     try {
-      const value = parseConfigEntry(JSON.parse(testCase.input))
+      const value = parseConfigEntry(testCase.input)
       expect(value).toEqual(testCase.output)
     } catch (err) {
       const error = err as Error

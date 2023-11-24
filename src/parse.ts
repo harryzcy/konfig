@@ -12,7 +12,7 @@ export const parseConfigKey = (input: string): ConfigKey => {
 
 export const parseConfigValue = (input: string): ConfigValue => {
   try {
-    return ConfigEntry.parse(input)
+    return ConfigValue.parse(input)
   } catch (e) {
     const error = e as z.ZodError
     const message = formatZodError(error)

@@ -3,6 +3,9 @@
     "next/core-web-vitals",
     "plugin:eslint-plugin-next-on-pages/recommended"
   ],
-  "comma-dangle": ["error", "never"],
+  "rules": {
+    "comma-dangle": ["error", "never"],
+    "semi": "off"
+  },
   "plugins": ["eslint-plugin-next-on-pages"]
 }

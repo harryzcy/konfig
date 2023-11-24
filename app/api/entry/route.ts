@@ -10,12 +10,18 @@ export async function POST(req: Request) {
   try {
     value = parseConfigEntry(body)
   } catch (e) {
-    return new Response('{"message":"invalid config entry"}', {
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8'
-      },
-      status: 400
-    })
+    const error = e as Error
+    return new Response(
+      JSON.stringify({
+        message: error.message
+      }),
+      {
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8'
+        },
+        status: 400
+      }
+    )
   }
 
   const { CONFIG_KV } = process.env as unknown as Env

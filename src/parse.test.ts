@@ -1,5 +1,32 @@
-import { parseConfigEntry } from './parse'
+import { parseConfigEntry, parseConfigKey } from './parse'
 import { expect, test } from 'vitest'
+
+test('config key', () => {
+  const testCases = [
+    {
+      input: 'foo',
+      output: 'foo'
+    },
+    {
+      input: 'foo:bar',
+      errorMsg: 'invalid input: key cannot contain ":"'
+    }
+  ]
+
+  for (const testCase of testCases) {
+    let hasError = false
+    try {
+      const value = parseConfigKey(testCase.input)
+      expect(value).toEqual(testCase.output)
+    } catch (err) {
+      const error = err as Error
+      expect(error.message).toBe(testCase.errorMsg)
+      hasError = true
+    }
+
+    expect(hasError).toBe(testCase.errorMsg !== undefined)
+  }
+})
 
 test('config schema', () => {
   const testCases = [

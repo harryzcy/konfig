@@ -1,31 +1,30 @@
 import { parseConfigEntry } from '@/src/parse'
-import type { ConfigEntry, Env } from '@/src/types'
+import { errorResponse, successResponse } from '@/src/response'
+import type { ConfigEntry, ConfigValue, Env } from '@/src/types'
 
 export const runtime = 'edge'
 
 export async function POST(req: Request) {
-  const body = await req.json()
+  console.log('Handling POST request')
 
-  let value: ConfigEntry
+  let entry: ConfigEntry
   try {
-    value = parseConfigEntry(body)
+    entry = parseConfigEntry(await req.text())
   } catch (e) {
-    return new Response('{"message":"invalid config entry"}', {
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8'
-      },
-      status: 400
-    })
+    const error = e as Error
+    return errorResponse(error)
   }
 
   const { CONFIG_KV } = process.env as unknown as Env
 
-  const key = `entry:${value.key}`
-  await CONFIG_KV.put(key, JSON.stringify(value))
+  const value = {
+    type: entry.type,
+    value: entry.value
+  } as ConfigValue
 
-  return new Response('{"message":"success"}', {
-    headers: {
-      'Content-Type': 'application/json; charset=UTF-8'
-    }
-  })
+  console.log(`Storing key entry:${entry.key} in KV`)
+  await CONFIG_KV.put(`entry:${entry.key}`, JSON.stringify(value))
+  console.log(`Stored key entry:${entry.key} in KV`)
+
+  return successResponse()
 }

@@ -16,6 +16,7 @@ export const ConfigEntry = z.object({
   value: z.string()
 })
 
+export type ConfigKey = z.infer<typeof ConfigKey>
 export type ConfigEntry = z.infer<typeof ConfigEntry>
 export type ConfigValue = z.infer<typeof ConfigValue>
 

@@ -1,7 +1,10 @@
 import { POST } from './route'
+import { Env } from '@/src/types'
 import { createRequest } from '@/test/utils'
 import { describe } from 'node:test'
 import { expect, test } from 'vitest'
+
+const bindings = getMiniflareBindings() as Env
 
 describe('POST /api/entry', () => {
   test('success', async () => {
@@ -12,6 +15,10 @@ describe('POST /api/entry', () => {
     )
     const res = await POST(req)
     expect(res).toHaveProperty('status', 200)
+
+    expect(await bindings.CONFIG_KV.get('entry:foo')).toBe(
+      '{"type":"text","value":"test"}'
+    )
   })
 
   test('invalid json', async () => {

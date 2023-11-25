@@ -21,8 +21,15 @@ export const parseConfigValue = (input: string): ConfigValue => {
 }
 
 export const parseConfigEntry = (input: string): ConfigEntry => {
+  let json
   try {
-    const value = ConfigEntry.parse(JSON.parse(input))
+    json = JSON.parse(input)
+  } catch (e) {
+    throw new Error('invalid input: input is not valid JSON')
+  }
+
+  try {
+    const value = ConfigEntry.parse(json)
     return value
   } catch (e) {
     const error = e as z.ZodError

@@ -1,3 +1,4 @@
+import path from 'path'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
@@ -5,6 +6,11 @@ export default defineConfig({
     environment: 'miniflare',
     environmentOptions: {
       kvNamespaces: ['CONFIG_KV']
+    }
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname)
     }
   }
 })

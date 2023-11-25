@@ -9,9 +9,9 @@ export async function GET(req: Request) {
   let key: ConfigKey
   try {
     const url = new URL(req.url)
-    const rawKey = url.pathname.split('/').pop()
-    if (rawKey === undefined) {
-      throw new Error('invalid input: key is undefined')
+    const rawKey = url.pathname.split('/').pop() ?? ''
+    if (rawKey === '') {
+      throw new Error('invalid input: key is not defined')
     }
     console.log('Received request for key:', rawKey)
     key = parseConfigKey(rawKey)
@@ -48,9 +48,9 @@ export async function DELETE(req: Request) {
   let key: ConfigKey
   try {
     const url = new URL(req.url)
-    const rawKey = url.pathname.split('/').pop()
-    if (rawKey === undefined) {
-      throw new Error('invalid input: key is undefined')
+    const rawKey = url.pathname.split('/').pop() ?? ''
+    if (rawKey === '') {
+      throw new Error('invalid input: key is not defined')
     }
     console.log('Received request for key:', rawKey)
     key = parseConfigKey(rawKey)

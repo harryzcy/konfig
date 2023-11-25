@@ -9,7 +9,7 @@ export async function GET(req: Request) {
   let key: ConfigKey
   try {
     const url = new URL(req.url)
-    const rawKey = url.pathname.split('/').pop() ?? ''
+    const rawKey = url.pathname.split('/').pop() || ''
     if (rawKey === '') {
       throw new Error('invalid input: key is not defined')
     }
@@ -48,7 +48,7 @@ export async function DELETE(req: Request) {
   let key: ConfigKey
   try {
     const url = new URL(req.url)
-    const rawKey = url.pathname.split('/').pop() ?? ''
+    const rawKey = url.pathname.split('/').pop() || ''
     if (rawKey === '') {
       throw new Error('invalid input: key is not defined')
     }

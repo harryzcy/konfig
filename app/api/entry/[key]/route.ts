@@ -26,12 +26,7 @@ export async function GET(req: Request) {
   const raw = await CONFIG_KV.get(`entry:${key}`)
   if (raw === null) {
     console.log(`Key entry:${key} not found in KV`)
-    return new Response('{"message":"not found"}', {
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8'
-      },
-      status: 404
-    })
+    return errorResponse(new Error('not found'), 404)
   }
   console.log(`Found key entry:${key} in KV`)
 

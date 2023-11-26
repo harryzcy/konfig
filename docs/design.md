@@ -12,13 +12,15 @@ Node: It should not be changed frequently.
 
 Config groups are the logical groupings of the configurations. This can be one project or multiple projects that are related to each other.
 
+It can have a group-wide synchronization method.
+
 Note: It should not be changed frequently.
 
 ## Config Entry
 
 Each configuration item with a name and value. The config names in each group and each environment must be unique.
 
-A config entry is synchronized by either pull or push.
+A config entry is synchronized by either pull or push. The default method is inherited from config group.
 
 ## KV Database Design
 
@@ -80,7 +82,7 @@ The value of `group:<group_name>` is cached.
 
 ### Create a Config Entry
 
-Ensure `group:<group_name>` is not soft deleted, and then adds `entry:<group_name>:<environment_name>:<key>`.
+Ensure `group:<group_name>` is not soft deleted, and then adds `entry:<group_name>:<environment_name>:<key>`. The synchronization method is either provided, or inherited from Config Group.
 
 If the synchronization method is push, a hook is delivered.
 

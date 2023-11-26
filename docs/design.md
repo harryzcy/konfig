@@ -40,7 +40,7 @@ Mark environment as deleted, and add a deleted date. It requires that no groups 
 
 ## Hard Delete Environment
 
-Remove the environment `env:<environment_name>`.
+Remove the environment `env:<environment_name>`. This requires soft delete to be completed before TTL time, so that the values in Cloudflare KV is propagated. This also checks there's no associated groups again.
 
 ### List Config Groups
 
@@ -50,22 +50,34 @@ Return a list of config groups by listing `group:` prefix.
 
 Put a new key `group:<group_name>` with empty value.
 
+## Associate a Config Group with an Environment
+
+Adds environment to `group:<group_name>` and adds config group to `env:<environment_name>`.
+
 ## Soft Delete Config Group
 
-Mark config group as deleted, and add a deleted date. It also performs a list optional with prefix `entry:<group_name>:` and the response should be empty.\
+Mark config group as deleted, and add a deleted date. It also performs a list optional with prefix `entry:<group_name>:` and the response should be empty.
 
 ## Hard Delete Config Group
 
-Delete the config group `group:<group_name>`.
+Delete the config group `group:<group_name>`. This requires soft delete to be completed before TTL time, so that the values in Cloudflare KV is propagated. It also checks there's no config entries with prefix `entry:<group_name>:` again.
 
 ### List Config Entries
 
-The list operation that returns the config entries by listing `entry:` prefix. This should be filtered by config group and optionally environment.
+List config entries filtered by config group and optionally environment.
+
+This operation does two queries. First it gets `group:<group_name>` to make sure group is not soft deleted. Then it returns the config entries by listing `entry:` prefix.
+
+The value of `group:<group_name>` is cached.
 
 ### Get a Config Entry
 
-Returns a config entry providing environment, group, and config name. The operation queries key `entry:<group_name>:<environment_name>:<key>`.
+Returns a config entry providing environment, group, and config name. The operation makes sure `group:<group_name>` is not soft deleted and then queries key `entry:<group_name>:<environment_name>:<key>`.
+
+The value of `group:<group_name>` is cached.
 
 ### Remove a Config Entry
 
 Delete the key `entry:<group_name>:<environment_name>:<key>`.
+
+Even if `group:<group_name>` is soft deleted, this operation is allowed, so that any key created during TTL time can still be removed.

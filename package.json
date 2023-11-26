@@ -21,7 +21,7 @@
     "zod": "3.22.4"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "1.7.4",
+    "@cloudflare/next-on-pages": "1.8.0",
     "@cloudflare/workers-types": "4.20231121.0",
     "@miniflare/shared-test-environment": "2.14.1",
     "@trivago/prettier-plugin-sort-imports": "4.3.0",

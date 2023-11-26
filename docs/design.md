@@ -38,11 +38,11 @@ Returns a list of environments by listing `env:` prefix.
 
 Put a new key `env:<environment_name>` with empty value.
 
-## Soft Delete Environment
+### Soft Delete Environment
 
 Mark environment as deleted, and add a deleted date. It requires that no groups are associated with this environment.
 
-## Hard Delete Environment
+### Hard Delete Environment
 
 Remove the environment `env:<environment_name>`. This requires soft delete to be completed before TTL time, so that the values in Cloudflare KV is propagated. This also checks there's no associated groups again.
 
@@ -50,19 +50,19 @@ Remove the environment `env:<environment_name>`. This requires soft delete to be
 
 Return a list of config groups by listing `group:` prefix.
 
-## Create Config Group
+### Create Config Group
 
 Put a new key `group:<group_name>` with empty value.
 
-## Associate a Config Group with an Environment
+### Associate a Config Group with an Environment
 
 Adds environment to `group:<group_name>` and adds config group to `env:<environment_name>`.
 
-## Soft Delete Config Group
+### Soft Delete Config Group
 
 Mark config group as deleted, and add a deleted date. It also performs a list optional with prefix `entry:<group_name>:` and the response should be empty.
 
-## Hard Delete Config Group
+### Hard Delete Config Group
 
 Delete the config group `group:<group_name>`. This requires soft delete to be completed before TTL time, so that the values in Cloudflare KV is propagated. It also checks there's no config entries with prefix `entry:<group_name>:` again.
 

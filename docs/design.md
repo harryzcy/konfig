@@ -18,6 +18,8 @@ Note: It should not be changed frequently.
 
 Each configuration item with a name and value. The config names in each group and each environment must be unique.
 
+A config entry is synchronized by either pull or push.
+
 ## KV Database Design
 
 - `env:<environment_name>`: Contains environment metadata and group list
@@ -73,6 +75,14 @@ The value of `group:<group_name>` is cached.
 ### Get a Config Entry
 
 Returns a config entry providing environment, group, and config name. The operation makes sure `group:<group_name>` is not soft deleted and then queries key `entry:<group_name>:<environment_name>:<key>`.
+
+The value of `group:<group_name>` is cached.
+
+### Create a Config Entry
+
+Ensure `group:<group_name>` is not soft deleted, and then adds `entry:<group_name>:<environment_name>:<key>`.
+
+If the synchronization method is push, a hook is delivered.
 
 The value of `group:<group_name>` is cached.
 

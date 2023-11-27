@@ -1,7 +1,7 @@
-import { parseConfigEntry, parseConfigKey, parseConfigValue } from './parse'
+import { parseConfigEntry, parseKey, parseConfigValue } from './parse'
 import { expect, test } from 'vitest'
 
-test('config key', () => {
+test('key', () => {
   const testCases = [
     {
       input: 'foo',
@@ -20,7 +20,7 @@ test('config key', () => {
   for (const testCase of testCases) {
     let hasError = false
     try {
-      const value = parseConfigKey(testCase.input)
+      const value = parseKey(testCase.input)
       expect(value).toEqual(testCase.output)
     } catch (err) {
       const error = err as Error

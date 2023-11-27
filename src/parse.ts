@@ -1,8 +1,10 @@
 import {
+  Key,
   ConfigEntry,
-  ConfigKey,
   ConfigValue,
-  NewEnvironmentRequest
+  NewEnvironmentRequest,
+  EnvironmentValue,
+  EnvironmentMetadata
 } from './types'
 import { z } from 'zod'
 
@@ -14,6 +16,15 @@ const parseJson = (input: string): unknown => {
     throw new Error('invalid input: input is not valid JSON')
   }
   return json
+}
+
+export const parseKey = (input: string): Key => {
+  try {
+    const value = Key.parse(input)
+    return value
+  } catch (e) {
+    throw new Error('invalid input: key cannot contain ":"')
+  }
 }
 
 export const parseNewEnvironmentRequest = (
@@ -30,12 +41,28 @@ export const parseNewEnvironmentRequest = (
   }
 }
 
-export const parseConfigKey = (input: string): ConfigKey => {
+export const parseEnvironmentMetadata = (
+  input: unknown
+): EnvironmentMetadata => {
   try {
-    const value = ConfigKey.parse(input)
+    const value = EnvironmentMetadata.parse(input)
     return value
   } catch (e) {
-    throw new Error('invalid input: key cannot contain ":"')
+    const error = e as z.ZodError
+    const message = formatZodError(error)
+    throw new Error(message)
+  }
+}
+
+export const parseEnvironmentValue = (input: string): EnvironmentValue => {
+  const json = parseJson(input)
+  try {
+    const value = EnvironmentValue.parse(json)
+    return value
+  } catch (e) {
+    const error = e as z.ZodError
+    const message = formatZodError(error)
+    throw new Error(message)
   }
 }
 

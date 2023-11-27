@@ -1,25 +1,23 @@
-import { parseConfigKey, parseConfigValue } from '@/src/parse'
+import { parseKey, parseConfigValue } from '@/src/parse'
+import { getLastPathname } from '@/src/request'
 import {
   errorResponse,
   jsonResponse,
   notFoundResponse,
   successResponse
 } from '@/src/response'
-import type { ConfigEntry, ConfigKey, Env } from '@/src/types'
+import type { ConfigEntry, Key, Env } from '@/src/types'
 
 export const runtime = 'edge'
 
 export async function GET(req: Request) {
   console.log('Handling GET request')
-  let key: ConfigKey
+  let key: Key
   try {
-    const url = new URL(req.url)
-    const rawKey = url.pathname.split('/').pop() || ''
-    if (rawKey === '') {
-      throw new Error('invalid input: key is not defined')
-    }
+    const rawKey = getLastPathname(req.url, 'key')
+
     console.log('Received request for key:', rawKey)
-    key = parseConfigKey(rawKey)
+    key = parseKey(rawKey)
   } catch (e) {
     const error = e as Error
     return errorResponse(error)
@@ -45,15 +43,12 @@ export async function GET(req: Request) {
 export async function DELETE(req: Request) {
   console.log('Handling DELETE request')
 
-  let key: ConfigKey
+  let key: Key
   try {
-    const url = new URL(req.url)
-    const rawKey = url.pathname.split('/').pop() || ''
-    if (rawKey === '') {
-      throw new Error('invalid input: key is not defined')
-    }
+    const rawKey = getLastPathname(req.url, 'key')
+
     console.log('Received request for key:', rawKey)
-    key = parseConfigKey(rawKey)
+    key = parseKey(rawKey)
   } catch (e) {
     const error = e as Error
     return errorResponse(error)

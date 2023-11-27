@@ -1,7 +1,15 @@
-import { parseConfigEntry, parseConfigKey, parseConfigValue } from './parse'
+import {
+  parseConfigEntry,
+  parseKey,
+  parseConfigValue,
+  parseNewEnvironmentRequest,
+  parseEnvironmentMetadata,
+  parseEnvironmentValue
+} from './parse'
+import { describe } from 'node:test'
 import { expect, test } from 'vitest'
 
-test('config key', () => {
+test('key', () => {
   const testCases = [
     {
       input: 'foo',
@@ -20,7 +28,7 @@ test('config key', () => {
   for (const testCase of testCases) {
     let hasError = false
     try {
-      const value = parseConfigKey(testCase.input)
+      const value = parseKey(testCase.input)
       expect(value).toEqual(testCase.output)
     } catch (err) {
       const error = err as Error
@@ -30,6 +38,84 @@ test('config key', () => {
 
     expect(hasError).toBe(testCase.errorMsg !== undefined)
   }
+})
+
+describe('parseNewEnvironmentRequest', () => {
+  test('success', () => {
+    const testCases = [
+      {
+        input: '{"name":"production"}',
+        output: { name: 'production' }
+      },
+      {
+        input: '{"name":"foo"}',
+        output: { name: 'foo' }
+      }
+    ]
+
+    for (const testCase of testCases) {
+      const value = parseNewEnvironmentRequest(testCase.input)
+      expect(value).toEqual(testCase.output)
+    }
+  })
+
+  test('invalid json', () => {
+    expect(() => parseNewEnvironmentRequest('invalid input')).toThrow(
+      'invalid input: input is not valid JSON'
+    )
+  })
+
+  test('zod validation failed', () => {
+    expect(() => parseNewEnvironmentRequest('{}')).toThrow(
+      'invalid input: field name is invalid'
+    )
+  })
+})
+
+describe('parseEnvironmentMetadata', () => {
+  test('success', () => {
+    expect(parseEnvironmentMetadata({ created: 123 })).toEqual({
+      created: 123
+    })
+  })
+
+  test('zod validation failed', () => {
+    expect(() => parseEnvironmentMetadata({})).toThrow(
+      'invalid input: field created is invalid'
+    )
+  })
+})
+
+describe('parseEnvironmentValue', () => {
+  test('success', () => {
+    const testCases = [
+      {
+        input: '{"groups":["foo","bar"]}',
+        output: { groups: ['foo', 'bar'] }
+      },
+      {
+        input: '{"groups":["foo"]}',
+        output: { groups: ['foo'] }
+      }
+    ]
+
+    for (const testCase of testCases) {
+      const value = parseEnvironmentValue(testCase.input)
+      expect(value).toEqual(testCase.output)
+    }
+  })
+
+  test('invalid json', () => {
+    expect(() => parseEnvironmentValue('invalid input')).toThrow(
+      'invalid input: input is not valid JSON'
+    )
+  })
+
+  test('zod validation failed', () => {
+    expect(() => parseEnvironmentValue('{}')).toThrow(
+      'invalid input: field groups is invalid'
+    )
+  })
 })
 
 test('config value', () => {

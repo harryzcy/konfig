@@ -14,11 +14,8 @@ export async function GET(req: Request) {
   console.log('Handling GET request')
   let name: Key
   try {
-    const url = new URL(req.url)
-    const rawName = url.pathname.split('/').pop() || ''
-    if (rawName === '') {
-      throw new Error('invalid input: environment name is not defined')
-    }
+    const rawName = getLastPathname(req.url, 'environment name')
+
     console.log('Received request for environment name:', rawName)
     name = parseKey(rawName)
   } catch (e) {

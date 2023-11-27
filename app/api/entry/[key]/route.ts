@@ -1,4 +1,5 @@
 import { parseKey, parseConfigValue } from '@/src/parse'
+import { getLastPathname } from '@/src/request'
 import {
   errorResponse,
   jsonResponse,
@@ -13,11 +14,8 @@ export async function GET(req: Request) {
   console.log('Handling GET request')
   let key: Key
   try {
-    const url = new URL(req.url)
-    const rawKey = url.pathname.split('/').pop() || ''
-    if (rawKey === '') {
-      throw new Error('invalid input: key is not defined')
-    }
+    const rawKey = getLastPathname(req.url, 'key')
+
     console.log('Received request for key:', rawKey)
     key = parseKey(rawKey)
   } catch (e) {
@@ -47,11 +45,8 @@ export async function DELETE(req: Request) {
 
   let key: Key
   try {
-    const url = new URL(req.url)
-    const rawKey = url.pathname.split('/').pop() || ''
-    if (rawKey === '') {
-      throw new Error('invalid input: key is not defined')
-    }
+    const rawKey = getLastPathname(req.url, 'key')
+
     console.log('Received request for key:', rawKey)
     key = parseKey(rawKey)
   } catch (e) {

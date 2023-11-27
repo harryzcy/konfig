@@ -21,3 +21,7 @@ npm install`
 ```shell
 wrangler deploy --env production
 ```
+
+## Contributing
+
+Please see [docs/design.md](docs/design.md) for a guide of implementation details.

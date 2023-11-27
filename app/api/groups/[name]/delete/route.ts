@@ -27,7 +27,7 @@ export async function POST(req: Request) {
   }
 
   const { CONFIG_KV } = process.env as unknown as Env
-  const key = `env:${name}`
+  const key = `group:${name}`
 
   // query key
   console.log('Fetching key ' + key + ' from KV')

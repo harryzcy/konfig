@@ -10,7 +10,7 @@ describe('POST /api/groups/[name]/delete', () => {
 
   test('success', async () => {
     await bindings.CONFIG_KV.put(
-      'env:foo',
+      'group:foo',
       JSON.stringify({ environments: [] }),
       {
         metadata: {
@@ -23,8 +23,12 @@ describe('POST /api/groups/[name]/delete', () => {
     const res = await POST(req)
     expect(res.status).toBe(200)
     expect(await res.text()).toBe('{"message":"success"}')
-
-    await expect(bindings.CONFIG_KV.get('env:foo')).resolves.toBeDefined()
+    expect(await bindings.CONFIG_KV.get('group:foo')).toBe(
+      '{"environments":[]}'
+    )
+    expect(
+      await bindings.CONFIG_KV.getWithMetadata('group:foo')
+    ).toHaveProperty('metadata.deleted')
 
     // Deleting again should give 400, already soft deleted
     const resAgain = await POST(req)
@@ -36,7 +40,7 @@ describe('POST /api/groups/[name]/delete', () => {
 
   test('has keys', async () => {
     await bindings.CONFIG_KV.put(
-      'env:foo',
+      'group:foo',
       JSON.stringify({ environments: ['staging'] }),
       {
         metadata: {
@@ -50,11 +54,15 @@ describe('POST /api/groups/[name]/delete', () => {
     const res = await POST(req)
     expect(res).toHaveProperty('status', 400)
     expect(await res.text()).toBe('{"error":"Group foo still has keys"}')
+    expect(await bindings.CONFIG_KV.get('group:foo')).toBe(
+      '{"environments":["staging"]}'
+    )
+    expect(await bindings.CONFIG_KV.get('entry:foo:staging:bar')).toBe('baz')
   })
 
   test('has multiple keys', async () => {
     await bindings.CONFIG_KV.put(
-      'env:foo',
+      'group:foo',
       JSON.stringify({ environments: ['production', 'staging', 'demo'] }),
       {
         metadata: {
@@ -69,6 +77,9 @@ describe('POST /api/groups/[name]/delete', () => {
     const res = await POST(req)
     expect(res).toHaveProperty('status', 400)
     expect(await res.text()).toBe('{"error":"Group foo still has keys"}')
+    expect(await bindings.CONFIG_KV.get('group:foo')).toBe(
+      '{"environments":["production","staging","demo"]}'
+    )
   })
 
   test('404 not found', async () => {

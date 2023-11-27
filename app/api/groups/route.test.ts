@@ -17,6 +17,7 @@ describe('POST /api/groups', () => {
     expect(await bindings.CONFIG_KV.get('group:project-1')).toBe(
       '{"environments":[]}'
     )
+    await bindings.CONFIG_KV.delete('group:project-1')
   })
 
   test('invalid json', async () => {
@@ -26,6 +27,11 @@ describe('POST /api/groups', () => {
     expect(await res.text()).toBe(
       '{"error":"invalid input: input is not valid JSON"}'
     )
+    expect(
+      await bindings.CONFIG_KV.list({
+        prefix: 'group:'
+      })
+    ).toHaveProperty('keys', [])
   })
 
   test('zod validation failed', async () => {
@@ -35,5 +41,10 @@ describe('POST /api/groups', () => {
     expect(await res.text()).toBe(
       '{"error":"invalid input: field name is invalid"}'
     )
+    expect(
+      await bindings.CONFIG_KV.list({
+        prefix: 'group:'
+      })
+    ).toHaveProperty('keys', [])
   })
 })

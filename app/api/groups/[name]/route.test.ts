@@ -24,6 +24,7 @@ describe('GET /api/groups/[name]', () => {
     expect(await res.text()).toBe(
       '{"name":"foo","metadata":{"created":123},"environments":[]}'
     )
+    await bindings.CONFIG_KV.delete('group:foo')
   })
 
   test('non-empty environment', async () => {
@@ -43,6 +44,7 @@ describe('GET /api/groups/[name]', () => {
     expect(await res.text()).toBe(
       '{"name":"bar","metadata":{"created":123},"environments":["repo-1"]}'
     )
+    await bindings.CONFIG_KV.delete('group:bar')
   })
 
   test('404 not found', async () => {
@@ -72,38 +74,51 @@ describe('GET /api/groups/[name]', () => {
 
 describe('DELETE /api/groups/[name]', () => {
   test('success', async () => {
-    await bindings.CONFIG_KV.put('group:foo', JSON.stringify({ groups: [] }), {
-      metadata: {
-        created: 123,
-        deleted: Math.floor(Date.now() / 1000 - TTL - 1)
+    await bindings.CONFIG_KV.put(
+      'group:foo',
+      JSON.stringify({ environments: [] }),
+      {
+        metadata: {
+          created: 123,
+          deleted: Math.floor(Date.now() / 1000 - TTL - 1)
+        }
       }
-    })
+    )
     const req = createRequest('DELETE', '/api/groups/foo', null)
     const res = await DELETE(req)
     expect(res.status).toBe(200)
     expect(await res.text()).toBe('{"message":"success"}')
     await expect(bindings.CONFIG_KV.get('group:foo')).resolves.toBe(null)
+
     // Deleting again should give 404
     const resAgain = await DELETE(req)
     expect(resAgain).toHaveProperty('status', 404)
   })
 
   test('not soft deleted', async () => {
-    await bindings.CONFIG_KV.put('group:foo', JSON.stringify({ groups: [] }), {
-      metadata: {
-        created: 123
+    await bindings.CONFIG_KV.put(
+      'group:foo',
+      JSON.stringify({ environments: [] }),
+      {
+        metadata: {
+          created: 123
+        }
       }
-    })
+    )
     const req = createRequest('DELETE', '/api/groups/foo', null)
     const res = await DELETE(req)
     expect(res).toHaveProperty('status', 400)
     expect(await res.text()).toBe('{"error":"Group foo is not soft deleted"}')
+    await expect(bindings.CONFIG_KV.get('group:foo')).resolves.toBe(
+      '{"environments":[]}'
+    )
+    await bindings.CONFIG_KV.delete('group:foo')
   })
 
   test('soft deleted within TTL', async () => {
     await bindings.CONFIG_KV.put(
       'group:foo',
-      JSON.stringify({ environments: [] }),
+      JSON.stringify({ environments: ['production'] }),
       {
         metadata: {
           created: 123,
@@ -117,6 +132,10 @@ describe('DELETE /api/groups/[name]', () => {
     expect(await res.text()).toBe(
       '{"error":"Group foo is soft deleted within TTL"}'
     )
+    await expect(bindings.CONFIG_KV.get('group:foo')).resolves.toBe(
+      '{"environments":["production"]}'
+    )
+    await bindings.CONFIG_KV.delete('group:foo')
   })
 
   test('has keys', async () => {
@@ -136,6 +155,10 @@ describe('DELETE /api/groups/[name]', () => {
     const res = await DELETE(req)
     expect(res.status).toBe(400)
     expect(await res.text()).toBe('{"error":"Group foo still has keys"}')
+    await expect(bindings.CONFIG_KV.get('group:foo')).resolves.toBe(
+      '{"environments":["production"]}'
+    )
+    await bindings.CONFIG_KV.delete('group:foo')
   })
 
   test('invalid name', async () => {

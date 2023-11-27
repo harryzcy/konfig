@@ -1,5 +1,34 @@
-import { ConfigEntry, ConfigKey, ConfigValue } from './types'
+import {
+  ConfigEntry,
+  ConfigKey,
+  ConfigValue,
+  NewEnvironmentRequest
+} from './types'
 import { z } from 'zod'
+
+const parseJson = (input: string): unknown => {
+  let json
+  try {
+    json = JSON.parse(input)
+  } catch (e) {
+    throw new Error('invalid input: input is not valid JSON')
+  }
+  return json
+}
+
+export const parseNewEnvironmentRequest = (
+  input: string
+): NewEnvironmentRequest => {
+  const json = parseJson(input)
+  try {
+    const value = NewEnvironmentRequest.parse(json)
+    return value
+  } catch (e) {
+    const error = e as z.ZodError
+    const message = formatZodError(error)
+    throw new Error(message)
+  }
+}
 
 export const parseConfigKey = (input: string): ConfigKey => {
   try {
@@ -11,8 +40,9 @@ export const parseConfigKey = (input: string): ConfigKey => {
 }
 
 export const parseConfigValue = (input: string): ConfigValue => {
+  const json = parseJson(input)
   try {
-    return ConfigValue.parse(JSON.parse(input))
+    return ConfigValue.parse(json)
   } catch (e) {
     const error = e as z.ZodError
     const message = formatZodError(error)
@@ -21,13 +51,7 @@ export const parseConfigValue = (input: string): ConfigValue => {
 }
 
 export const parseConfigEntry = (input: string): ConfigEntry => {
-  let json
-  try {
-    json = JSON.parse(input)
-  } catch (e) {
-    throw new Error('invalid input: input is not valid JSON')
-  }
-
+  const json = parseJson(input)
   try {
     const value = ConfigEntry.parse(json)
     return value

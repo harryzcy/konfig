@@ -6,11 +6,13 @@ import { expect, test } from 'vitest'
 
 const bindings = getMiniflareBindings() as Env
 
-describe('POST /api/entry', () => {
+describe('POST /api/entries', () => {
+  const url = '/api/entries'
+
   test('success', async () => {
     const req = createRequest(
       'POST',
-      '/api/entry',
+      url,
       '{"type":"text", "key": "foo", "value":"test"}'
     )
     const res = await POST(req)
@@ -22,7 +24,7 @@ describe('POST /api/entry', () => {
   })
 
   test('invalid json', async () => {
-    const req = createRequest('POST', '/api/entry', 'invalid input')
+    const req = createRequest('POST', url, 'invalid input')
     const res = await POST(req)
     expect(res).toHaveProperty('status', 400)
     expect(await res.text()).toBe(
@@ -31,7 +33,7 @@ describe('POST /api/entry', () => {
   })
 
   test('zod validation failed', async () => {
-    const req = createRequest('POST', '/api/entry', '{"type":"text"}')
+    const req = createRequest('POST', url, '{"type":"text"}')
     const res = await POST(req)
     expect(res).toHaveProperty('status', 400)
     expect(await res.text()).toBe(

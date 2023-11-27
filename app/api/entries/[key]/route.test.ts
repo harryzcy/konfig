@@ -5,9 +5,9 @@ import { describe, expect, test, vi } from 'vitest'
 
 const bindings = getMiniflareBindings() as Env
 
-describe('GET /api/entry/[key]', () => {
+describe('GET /api/entries/[key]', () => {
   test('404 not found', async () => {
-    const req = createRequest('GET', '/api/entry/does-not-exist', null)
+    const req = createRequest('GET', '/api/entries/does-not-exist', null)
     const res = await GET(req)
     expect(res).toHaveProperty('status', 404)
   })
@@ -18,14 +18,14 @@ describe('GET /api/entry/[key]', () => {
       JSON.stringify({ type: 'text', value: 'test' })
     )
 
-    const req = createRequest('GET', '/api/entry/foo', null)
+    const req = createRequest('GET', '/api/entries/foo', null)
     const res = await GET(req)
     expect(res).toHaveProperty('status', 200)
     expect(await res.text()).toBe('{"type":"text","value":"test","key":"foo"}')
   })
 
   test('invalid key', async () => {
-    const req = createRequest('GET', '/api/entry/invalid:key', null)
+    const req = createRequest('GET', '/api/entries/invalid:key', null)
     const res = await GET(req)
     expect(res).toHaveProperty('status', 400)
     expect(await res.text()).toBe(
@@ -43,14 +43,14 @@ describe('GET /api/entry/[key]', () => {
   })
 })
 
-describe('DELETE /api/entry/[key]', () => {
+describe('DELETE /api/entries/[key]', () => {
   test('success', async () => {
     await bindings.CONFIG_KV.put(
       'entry:foo',
       JSON.stringify({ type: 'text', value: 'test' })
     )
 
-    const req = createRequest('DELETE', '/api/entry/foo', null)
+    const req = createRequest('DELETE', '/api/entries/foo', null)
     const res = await DELETE(req)
     expect(res).toHaveProperty('status', 200)
     expect(await res.text()).toBe('{"message":"success"}')
@@ -64,7 +64,7 @@ describe('DELETE /api/entry/[key]', () => {
   })
 
   test('invalid key', async () => {
-    const req = createRequest('DELETE', '/api/entry/invalid:key', null)
+    const req = createRequest('DELETE', '/api/entries/invalid:key', null)
     const res = await DELETE(req)
     expect(res).toHaveProperty('status', 400)
     expect(await res.text()).toBe(

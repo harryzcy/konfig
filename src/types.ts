@@ -6,12 +6,12 @@ export const Key = z.string().refine((value) => {
 }, 'key cannot contain ":"')
 export type Key = z.infer<typeof Key>
 
-export const EnvironmentName = Key
-export type EnvironmentName = z.infer<typeof EnvironmentName>
+export const Timestamp = z.number()
+export const OptionalTimestamp = z.number().optional()
 
 export const EnvironmentMetadata = z.object({
-  created: z.number(), // unix timestamp
-  deleted: z.number().optional() // unix timestamp
+  created: Timestamp,
+  deleted: OptionalTimestamp
 })
 export type EnvironmentMetadata = z.infer<typeof EnvironmentMetadata>
 
@@ -28,9 +28,25 @@ export const Environment = z.object({
 export type Environment = z.infer<typeof Environment>
 
 export const NewEnvironmentRequest = z.object({
-  name: EnvironmentName
+  name: Key
 })
 export type NewEnvironmentRequest = z.infer<typeof NewEnvironmentRequest>
+
+export const GroupMetadata = z.object({
+  created: Timestamp,
+  deleted: OptionalTimestamp
+})
+export type GroupMetadata = z.infer<typeof GroupMetadata>
+
+export const GroupValue = z.object({
+  environments: z.array(z.string())
+})
+export type GroupValue = z.infer<typeof GroupValue>
+
+export const NewGroupRequest = z.object({
+  name: Key
+})
+export type NewGroupRequest = z.infer<typeof NewGroupRequest>
 
 export const ConfigValue = z.object({
   type: z.enum(['text', 'json', 'yaml']),

@@ -4,7 +4,10 @@ import {
   ConfigValue,
   NewEnvironmentRequest,
   EnvironmentValue,
-  EnvironmentMetadata
+  EnvironmentMetadata,
+  NewGroupRequest,
+  GroupMetadata,
+  GroupValue
 } from './types'
 import { z } from 'zod'
 
@@ -58,6 +61,40 @@ export const parseEnvironmentValue = (input: string): EnvironmentValue => {
   const json = parseJson(input)
   try {
     const value = EnvironmentValue.parse(json)
+    return value
+  } catch (e) {
+    const error = e as z.ZodError
+    const message = formatZodError(error)
+    throw new Error(message)
+  }
+}
+
+export const parseNewGroupRequest = (input: string): NewGroupRequest => {
+  const json = parseJson(input)
+  try {
+    return NewGroupRequest.parse(json)
+  } catch (e) {
+    const error = e as z.ZodError
+    const message = formatZodError(error)
+    throw new Error(message)
+  }
+}
+
+export const parseGroupMetadata = (input: unknown): GroupMetadata => {
+  try {
+    const value = GroupMetadata.parse(input)
+    return value
+  } catch (e) {
+    const error = e as z.ZodError
+    const message = formatZodError(error)
+    throw new Error(message)
+  }
+}
+
+export const parseGroupValue = (input: string): GroupValue => {
+  const json = parseJson(input)
+  try {
+    const value = GroupValue.parse(json)
     return value
   } catch (e) {
     const error = e as z.ZodError

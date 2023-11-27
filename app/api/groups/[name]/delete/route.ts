@@ -1,4 +1,4 @@
-import { parseKey, parseEnvironmentValue } from '@/src/parse'
+import { parseKey, parseGroupValue } from '@/src/parse'
 import { getNthLastPathname } from '@/src/request'
 import {
   errorResponse,
@@ -6,7 +6,7 @@ import {
   successResponse
 } from '@/src/response'
 import { getUnixTimestamp } from '@/src/time'
-import type { Env, EnvironmentMetadata, Key } from '@/src/types'
+import type { Env, GroupMetadata, Key } from '@/src/types'
 
 export const runtime = 'edge'
 
@@ -16,10 +16,10 @@ export async function POST(req: Request) {
 
   let name: Key
   try {
-    // url is /api/environments/[name]/delete
-    const rawName = getNthLastPathname(req.url, 1, 'environment name')
+    // url is /api/groups/[name]/delete
+    const rawName = getNthLastPathname(req.url, 1, 'group name')
 
-    console.log('Received request for environment name:', rawName)
+    console.log('Received request for group name:', rawName)
     name = parseKey(rawName)
   } catch (e) {
     const error = e as Error
@@ -32,22 +32,21 @@ export async function POST(req: Request) {
   // query key
   console.log('Fetching key ' + key + ' from KV')
   const { value: raw, metadata } =
-    await CONFIG_KV.getWithMetadata<EnvironmentMetadata>(key)
+    await CONFIG_KV.getWithMetadata<GroupMetadata>(key)
   if (raw === null) {
     console.log(`Key ${key} not found in KV`)
     return notFoundResponse()
   }
   if (metadata?.deleted !== undefined) {
     console.log(`Key ${key} is already soft deleted`)
-    return errorResponse(
-      new Error(`Environment ${name} is already soft deleted`)
-    )
+    return errorResponse(new Error(`Group ${name} is already soft deleted`))
   }
 
-  const { groups } = parseEnvironmentValue(raw)
-  if (groups.length > 0) {
-    console.log(`Key ${key} has groups`)
-    return errorResponse(new Error(`Environment ${name} has groups`))
+  // check if keys are emptied
+  const resp = await CONFIG_KV.list({ prefix: `entry:${name}:` })
+  if (resp.keys.length > 0) {
+    console.log(`Key with prefix entry:${name}: still has keys`)
+    return errorResponse(new Error(`Group ${name} still has keys`))
   }
 
   console.log(`Marking key ${key} as soft deleted`)

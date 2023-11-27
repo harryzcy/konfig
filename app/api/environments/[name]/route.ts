@@ -70,7 +70,6 @@ export async function DELETE(req: Request) {
   const { value: raw, metadata } =
     await CONFIG_KV.getWithMetadata<EnvironmentMetadata>(key)
   if (raw === null) {
-    console.log(73)
     console.log(`Key ${key} not found in KV`)
     return notFoundResponse()
   }

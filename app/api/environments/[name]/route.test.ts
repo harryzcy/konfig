@@ -47,7 +47,7 @@ describe('GET /api/environments/[name]', () => {
     expect(res).toHaveProperty('status', 404)
   })
 
-  test('invalid key', async () => {
+  test('invalid name', async () => {
     const req = createRequest('GET', '/api/environments/invalid:key', null)
     const res = await GET(req)
     expect(res).toHaveProperty('status', 400)
@@ -56,7 +56,7 @@ describe('GET /api/environments/[name]', () => {
     )
   })
 
-  test('empty key', async () => {
+  test('empty name', async () => {
     const req = createRequest('GET', '', null)
     const res = await GET(req)
     expect(res).toHaveProperty('status', 400)
@@ -150,7 +150,7 @@ describe('DELETE /api/environments/[name]', () => {
     )
   })
 
-  test('invalid key', async () => {
+  test('invalid name', async () => {
     const req = createRequest('DELETE', '/api/environments/invalid:key', null)
     const res = await DELETE(req)
     expect(res).toHaveProperty('status', 400)
@@ -159,7 +159,7 @@ describe('DELETE /api/environments/[name]', () => {
     )
   })
 
-  test('empty key', async () => {
+  test('empty name', async () => {
     const req = createRequest('DELETE', '', null)
     const res = await DELETE(req)
     expect(res).toHaveProperty('status', 400)

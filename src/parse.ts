@@ -44,19 +44,6 @@ export const parseNewEnvironmentRequest = (
   }
 }
 
-export const parseEnvironmentMetadata = (
-  input: unknown
-): EnvironmentMetadata => {
-  try {
-    const value = EnvironmentMetadata.parse(input)
-    return value
-  } catch (e) {
-    const error = e as z.ZodError
-    const message = formatZodError(error)
-    throw new Error(message)
-  }
-}
-
 export const parseEnvironmentValue = (input: string): EnvironmentValue => {
   const json = parseJson(input)
   try {
@@ -73,17 +60,6 @@ export const parseNewGroupRequest = (input: string): NewGroupRequest => {
   const json = parseJson(input)
   try {
     return NewGroupRequest.parse(json)
-  } catch (e) {
-    const error = e as z.ZodError
-    const message = formatZodError(error)
-    throw new Error(message)
-  }
-}
-
-export const parseGroupMetadata = (input: unknown): GroupMetadata => {
-  try {
-    const value = GroupMetadata.parse(input)
-    return value
   } catch (e) {
     const error = e as z.ZodError
     const message = formatZodError(error)

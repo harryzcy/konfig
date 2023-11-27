@@ -3,7 +3,6 @@ import {
   parseKey,
   parseConfigValue,
   parseNewEnvironmentRequest,
-  parseEnvironmentMetadata,
   parseEnvironmentValue
 } from './parse'
 import { describe } from 'node:test'
@@ -68,20 +67,6 @@ describe('parseNewEnvironmentRequest', () => {
   test('zod validation failed', () => {
     expect(() => parseNewEnvironmentRequest('{}')).toThrow(
       'invalid input: field name is invalid'
-    )
-  })
-})
-
-describe('parseEnvironmentMetadata', () => {
-  test('success', () => {
-    expect(parseEnvironmentMetadata({ created: 123 })).toEqual({
-      created: 123
-    })
-  })
-
-  test('zod validation failed', () => {
-    expect(() => parseEnvironmentMetadata({})).toThrow(
-      'invalid input: field created is invalid'
     )
   })
 })

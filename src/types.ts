@@ -21,7 +21,7 @@ export const EnvironmentValue = z.object({
 export type EnvironmentValue = z.infer<typeof EnvironmentValue>
 
 export const Environment = z.object({
-  key: Key,
+  name: Key,
   metadata: EnvironmentMetadata,
   groups: z.array(z.string())
 })

@@ -1,3 +1,4 @@
+import { TTL } from '@/src/constants'
 import { parseKey, parseEnvironmentValue } from '@/src/parse'
 import { getLastPathname } from '@/src/request'
 import {
@@ -6,6 +7,7 @@ import {
   notFoundResponse,
   successResponse
 } from '@/src/response'
+import { getUnixTimestamp } from '@/src/time'
 import type { Env, EnvironmentMetadata, Key, Environment } from '@/src/types'
 
 export const runtime = 'edge'
@@ -28,7 +30,7 @@ export async function GET(req: Request) {
 
   console.log('Fetching key ' + name + ' from KV')
   const { value: raw, metadata } =
-    await CONFIG_KV.getWithMetadata<EnvironmentMetadata>(name)
+    await CONFIG_KV.getWithMetadata<EnvironmentMetadata>(key)
   if (raw === null) {
     console.log(`Key ${key} not found in KV`)
     return notFoundResponse()
@@ -37,7 +39,7 @@ export async function GET(req: Request) {
 
   const value = parseEnvironmentValue(raw)
   const env = {
-    key,
+    name,
     metadata,
     ...value
   } as Environment
@@ -63,8 +65,34 @@ export async function DELETE(req: Request) {
   const { CONFIG_KV } = process.env as unknown as Env
   const key = `env:${name}`
 
-  console.log(`Deleting key ${key} from KV`)
+  // query key
+  console.log('Fetching key ' + key + ' from KV')
+  const { value: raw, metadata } =
+    await CONFIG_KV.getWithMetadata<EnvironmentMetadata>(key)
+  if (raw === null) {
+    console.log(73)
+    console.log(`Key ${key} not found in KV`)
+    return notFoundResponse()
+  }
+  if (metadata?.deleted === undefined) {
+    console.log(`Key ${key} is not soft deleted`)
+    return errorResponse(new Error(`Environment ${name} is not soft deleted`))
+  }
+  const now = getUnixTimestamp()
+  if (metadata.deleted + TTL > now) {
+    console.log(`Key ${key} is soft deleted within TTL`)
+    return errorResponse(
+      new Error(`Environment ${name} is soft deleted within TTL`)
+    )
+  }
 
+  const { groups } = parseEnvironmentValue(raw)
+  if (groups.length > 0) {
+    console.log(`Key ${key} has groups`)
+    return errorResponse(new Error(`Environment ${name} has groups`))
+  }
+
+  console.log(`Deleting key ${key} from KV`)
   await CONFIG_KV.delete(key)
   console.log(`Deleted key ${key} from KV`)
 

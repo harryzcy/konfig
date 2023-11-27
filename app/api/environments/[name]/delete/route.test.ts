@@ -1,5 +1,4 @@
 import { POST } from './route'
-import { TTL } from '@/src/constants'
 import { Env } from '@/src/types'
 import { createRequest } from '@/test/utils'
 import { describe, expect, test, vi } from 'vitest'

@@ -43,6 +43,13 @@ export const GroupValue = z.object({
 })
 export type GroupValue = z.infer<typeof GroupValue>
 
+export const Group = z.object({
+  name: Key,
+  metadata: GroupMetadata,
+  environments: z.array(z.string())
+})
+export type Group = z.infer<typeof Group>
+
 export const NewGroupRequest = z.object({
   name: Key
 })

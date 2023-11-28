@@ -13,20 +13,12 @@ describe('POST /api/groups/[name]/link', () => {
   }
 
   test('success', async () => {
-    await bindings.CONFIG_KV.put(
-      'env:production',
-      JSON.stringify({ groups: [] }),
-      {
-        metadata: defaultMetadata
-      }
-    )
-    await bindings.CONFIG_KV.put(
-      'group:foo',
-      JSON.stringify({ environments: [] }),
-      {
-        metadata: defaultMetadata
-      }
-    )
+    await bindings.CONFIG_KV.put('env:production', '{"groups":[]}', {
+      metadata: defaultMetadata
+    })
+    await bindings.CONFIG_KV.put('group:foo', '{"environments":[]}', {
+      metadata: defaultMetadata
+    })
 
     const body = JSON.stringify({ environments: ['production'] })
     const req = createRequest('POST', url, body)
@@ -56,6 +48,10 @@ describe('POST /api/groups/[name]/link', () => {
       await bindings.CONFIG_KV.getWithMetadata('env:production')
     expect(envAgain).toBe('{"groups":["foo"]}')
     expect(envMetadataAgain).toStrictEqual(defaultMetadata)
+
+    // cleanup
+    await bindings.CONFIG_KV.delete('env:production')
+    await bindings.CONFIG_KV.delete('group:foo')
   })
 
   test('success with multiple environments', async () => {
@@ -101,6 +97,113 @@ describe('POST /api/groups/[name]/link', () => {
       await bindings.CONFIG_KV.getWithMetadata('env:staging')
     expect(env2).toBe('{"groups":["foo"]}')
     expect(envMetadata2).toStrictEqual(defaultMetadata)
+
+    // cleanup
+    await bindings.CONFIG_KV.delete('env:production')
+    await bindings.CONFIG_KV.delete('env:staging')
+    await bindings.CONFIG_KV.delete('group:foo')
+  })
+
+  test('one of the environment is marked as deleted', async () => {
+    await bindings.CONFIG_KV.put('env:production', '{"groups":[]}', {
+      metadata: defaultMetadata
+    })
+    await bindings.CONFIG_KV.put('env:demo', '{"groups":[]}', {
+      metadata: defaultMetadata
+    })
+    await bindings.CONFIG_KV.put('env:staging', '{"groups":[]}', {
+      metadata: {
+        ...defaultMetadata,
+        deleted: Math.floor(Date.now() / 1000)
+      }
+    })
+    await bindings.CONFIG_KV.put('group:foo', '{"environments":["demo"]}', {
+      metadata: defaultMetadata
+    })
+
+    const body = JSON.stringify({ environments: ['production', 'staging'] })
+    const req = createRequest('POST', url, body)
+    const res = await POST(req)
+    expect(res.status).toBe(400)
+    expect(await res.text()).toBe('{"error":"Environment staging is deleted"}')
+
+    // values not changed
+    const { value: group, metadata: groupMetadata } =
+      await bindings.CONFIG_KV.getWithMetadata('group:foo')
+    expect(group).toBe('{"environments":["demo"]}')
+    expect(groupMetadata).toStrictEqual(defaultMetadata)
+
+    expect(await bindings.CONFIG_KV.get('env:production')).toBe('{"groups":[]}')
+    expect(await bindings.CONFIG_KV.get('env:staging')).toBe('{"groups":[]}')
+
+    // cleanup
+    await bindings.CONFIG_KV.delete('env:production')
+    await bindings.CONFIG_KV.delete('env:demo')
+    await bindings.CONFIG_KV.delete('env:staging')
+    await bindings.CONFIG_KV.delete('group:foo')
+  })
+
+  test('one of the environment does not exist', async () => {
+    await bindings.CONFIG_KV.put('env:production', '{"groups":[]}', {
+      metadata: defaultMetadata
+    })
+    await bindings.CONFIG_KV.put('group:foo', '{"environments":[]}', {
+      metadata: defaultMetadata
+    })
+
+    const body = JSON.stringify({ environments: ['production', 'staging'] })
+    const req = createRequest('POST', url, body)
+    const res = await POST(req)
+    expect(res.status).toBe(404)
+    expect(await res.text()).toBe(
+      '{"error":"Environment staging is not found"}'
+    )
+
+    // values not changed
+    const { value: group, metadata: groupMetadata } =
+      await bindings.CONFIG_KV.getWithMetadata('group:foo')
+    expect(group).toBe('{"environments":[]}')
+    expect(groupMetadata).toStrictEqual(defaultMetadata)
+
+    expect(await bindings.CONFIG_KV.get('env:production')).toBe('{"groups":[]}')
+
+    // cleanup
+    await bindings.CONFIG_KV.delete('env:production')
+    await bindings.CONFIG_KV.delete('group:foo')
+  })
+
+  test('group key is already soft deleted', async () => {
+    const deletedTime = Math.floor(Date.now() / 1000)
+    await bindings.CONFIG_KV.put('env:production', '{"groups":[]}', {
+      metadata: defaultMetadata
+    })
+    await bindings.CONFIG_KV.put('group:foo', '{"environments":[]}', {
+      metadata: {
+        ...defaultMetadata,
+        deleted: deletedTime
+      }
+    })
+
+    const body = JSON.stringify({ environments: ['production'] })
+    const req = createRequest('POST', url, body)
+    const res = await POST(req)
+    expect(res.status).toBe(400)
+    expect(await res.text()).toBe('{"error":"Group foo is soft deleted"}')
+
+    // values not changed
+    const { value: group, metadata: groupMetadata } =
+      await bindings.CONFIG_KV.getWithMetadata('group:foo')
+    expect(group).toBe('{"environments":[]}')
+    expect(groupMetadata).toStrictEqual({
+      ...defaultMetadata,
+      deleted: deletedTime
+    })
+
+    expect(await bindings.CONFIG_KV.get('env:production')).toBe('{"groups":[]}')
+
+    // cleanup
+    await bindings.CONFIG_KV.delete('env:production')
+    await bindings.CONFIG_KV.delete('group:foo')
   })
 
   test('404 not found', async () => {

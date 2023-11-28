@@ -68,9 +68,9 @@ export async function POST(req: Request) {
     }
     // ensure not deleted
     if (environmentMetadata?.deleted && environmentMetadata.deleted > 0) {
-      console.log(`Key ${environmentKey} is soft deleted`)
+      console.log(`Key ${environmentKey} is deleted`)
       return errorResponse(
-        new Error(`Environment ${environmentName} is soft deleted`)
+        new Error(`Environment ${environmentName} is deleted`)
       )
     }
     const environmentValue = parseEnvironmentValue(environmentRaw)

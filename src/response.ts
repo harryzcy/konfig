@@ -14,8 +14,8 @@ export const jsonResponse = (data: unknown) => {
   })
 }
 
-export const notFoundResponse = () => {
-  return errorResponse(new Error('not found'), 404)
+export const notFoundResponse = (desc?: string) => {
+  return errorResponse(new Error(desc ?? 'not found'), 404)
 }
 
 export const errorResponse = (error: Error, status = 400) => {

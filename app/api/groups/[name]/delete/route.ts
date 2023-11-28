@@ -12,11 +12,11 @@ export const runtime = 'edge'
 
 // Soft delete
 export async function POST(req: Request) {
+  // url is /api/groups/[name]/delete
   console.log('Handling POST request')
 
   let name: Key
   try {
-    // url is /api/groups/[name]/delete
     const rawName = getNthLastPathname(req.url, 1, 'group name')
 
     console.log('Received request for group name:', rawName)

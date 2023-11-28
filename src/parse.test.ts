@@ -3,8 +3,9 @@ import {
   parseKey,
   parseConfigValue,
   parseNewEnvironmentRequest,
-  parseEnvironmentMetadata,
-  parseEnvironmentValue
+  parseEnvironmentValue,
+  parseNewGroupRequest,
+  parseGroupValue
 } from './parse'
 import { describe } from 'node:test'
 import { expect, test } from 'vitest'
@@ -72,20 +73,6 @@ describe('parseNewEnvironmentRequest', () => {
   })
 })
 
-describe('parseEnvironmentMetadata', () => {
-  test('success', () => {
-    expect(parseEnvironmentMetadata({ created: 123 })).toEqual({
-      created: 123
-    })
-  })
-
-  test('zod validation failed', () => {
-    expect(() => parseEnvironmentMetadata({})).toThrow(
-      'invalid input: field created is invalid'
-    )
-  })
-})
-
 describe('parseEnvironmentValue', () => {
   test('success', () => {
     const testCases = [
@@ -114,6 +101,57 @@ describe('parseEnvironmentValue', () => {
   test('zod validation failed', () => {
     expect(() => parseEnvironmentValue('{}')).toThrow(
       'invalid input: field groups is invalid'
+    )
+  })
+})
+
+describe('parseNewGroupRequest', () => {
+  test('success', () => {
+    const value = parseNewGroupRequest('{"name":"project-1"}')
+    expect(value).toEqual({ name: 'project-1' })
+  })
+
+  test('invalid json', () => {
+    expect(() => parseNewGroupRequest('invalid input')).toThrow(
+      'invalid input: input is not valid JSON'
+    )
+  })
+
+  test('zod validation failed', () => {
+    expect(() => parseNewGroupRequest('{}')).toThrow(
+      'invalid input: field name is invalid'
+    )
+  })
+})
+
+describe('parseGroupValue', () => {
+  test('success', () => {
+    const testCases = [
+      {
+        input: '{"environments":["production","staging"]}',
+        output: { environments: ['production', 'staging'] }
+      },
+      {
+        input: '{"environments":["production"]}',
+        output: { environments: ['production'] }
+      }
+    ]
+
+    for (const testCase of testCases) {
+      const value = parseGroupValue(testCase.input)
+      expect(value).toEqual(testCase.output)
+    }
+  })
+
+  test('invalid json', () => {
+    expect(() => parseGroupValue('invalid input')).toThrow(
+      'invalid input: input is not valid JSON'
+    )
+  })
+
+  test('zod validation failed', () => {
+    expect(() => parseGroupValue('{}')).toThrow(
+      'invalid input: field environments is invalid'
     )
   })
 })

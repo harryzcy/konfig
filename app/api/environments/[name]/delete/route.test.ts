@@ -56,7 +56,11 @@ describe('POST /api/environments/[name]/delete', () => {
   })
 
   test('404 not found', async () => {
-    const req = createRequest('GET', '/api/environments/not-found/delete', null)
+    const req = createRequest(
+      'POST',
+      '/api/environments/not-found/delete',
+      null
+    )
     const res = await POST(req)
     expect(res).toHaveProperty('status', 404)
     expect(await res.text()).toBe('{"error":"not found"}')

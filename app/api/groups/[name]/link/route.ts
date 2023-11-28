@@ -36,7 +36,7 @@ export async function POST(req: Request) {
   }
 
   const { CONFIG_KV } = process.env as unknown as Env
-  const groupKey = `group:${name}`
+  const groupKey = `group:${groupName}`
 
   // get group
   console.log('Fetching key ' + groupKey + ' from KV')
@@ -49,7 +49,7 @@ export async function POST(req: Request) {
   // ensure not deleted
   if (groupMetadata?.deleted && groupMetadata.deleted > 0) {
     console.log(`Key ${groupKey} is soft deleted`)
-    return errorResponse(new Error(`Group ${name} is soft deleted`))
+    return errorResponse(new Error(`Group ${groupName} is soft deleted`))
   }
 
   // get environments
@@ -58,7 +58,7 @@ export async function POST(req: Request) {
     { value: EnvironmentValue; metadata: EnvironmentMetadata }
   > = {}
   for (const environmentName of groupValue.environments) {
-    const environmentKey = `environment:${environmentName}`
+    const environmentKey = `env:${environmentName}`
     console.log('Fetching key ' + environmentKey + ' from KV')
     const { value: environmentRaw, metadata: environmentMetadata } =
       await CONFIG_KV.getWithMetadata<EnvironmentMetadata>(environmentKey)
@@ -98,7 +98,7 @@ export async function POST(req: Request) {
   console.log(`Updated key ${groupKey}`)
 
   for (const environmentName of groupValue.environments) {
-    const environmentKey = `environment:${environmentName}`
+    const environmentKey = `env:${environmentName}`
     console.log(`Updating key ${environmentKey}`)
     const { value, metadata } = environmentValues[environmentName]
     const environmentValue = {

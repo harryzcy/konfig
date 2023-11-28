@@ -83,7 +83,7 @@ describe('POST /api/groups/[name]/delete', () => {
   })
 
   test('404 not found', async () => {
-    const req = createRequest('GET', '/api/groups/not-found/delete', null)
+    const req = createRequest('POSt', '/api/groups/not-found/delete', null)
     const res = await POST(req)
     expect(res).toHaveProperty('status', 404)
     expect(await res.text()).toBe('{"error":"not found"}')

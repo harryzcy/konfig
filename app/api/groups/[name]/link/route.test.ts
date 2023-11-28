@@ -5,85 +5,107 @@ import { describe, expect, test, vi } from 'vitest'
 
 const bindings = getMiniflareBindings() as Env
 
-describe('POST /api/groups/[name]/delete', () => {
-  const url = '/api/groups/foo/delete'
+describe('POST /api/groups/[name]/link', () => {
+  const url = '/api/groups/foo/link'
+
+  const defaultMetadata = {
+    created: 123
+  }
 
   test('success', async () => {
+    await bindings.CONFIG_KV.put(
+      'env:production',
+      JSON.stringify({ groups: [] }),
+      {
+        metadata: defaultMetadata
+      }
+    )
     await bindings.CONFIG_KV.put(
       'group:foo',
       JSON.stringify({ environments: [] }),
       {
-        metadata: {
-          created: 123
-        }
+        metadata: defaultMetadata
       }
     )
 
-    const req = createRequest('POST', url, null)
+    const body = JSON.stringify({ environments: ['production'] })
+    const req = createRequest('POST', url, body)
     const res = await POST(req)
     expect(res.status).toBe(200)
     expect(await res.text()).toBe('{"message":"success"}')
-    expect(await bindings.CONFIG_KV.get('group:foo')).toBe(
-      '{"environments":[]}'
-    )
-    expect(
+
+    const { value: group, metadata: groupMetadata } =
       await bindings.CONFIG_KV.getWithMetadata('group:foo')
-    ).toHaveProperty('metadata.deleted')
+    expect(group).toBe('{"environments":["production"]}')
+    expect(groupMetadata).toStrictEqual(defaultMetadata)
 
-    // Deleting again should give 400, already soft deleted
-    const resAgain = await POST(req)
-    expect(resAgain).toHaveProperty('status', 400)
-    expect(await resAgain.text()).toBe(
-      '{"error":"Group foo is already soft deleted"}'
-    )
+    const { value: env, metadata: envMetadata } =
+      await bindings.CONFIG_KV.getWithMetadata('env:production')
+    expect(env).toBe('{"groups":["foo"]}')
+    expect(envMetadata).toStrictEqual(defaultMetadata)
+
+    // linking again should be a no-op
+    const resAgain = await POST(createRequest('POST', url, body))
+    expect(resAgain.status).toBe(200)
+    const { value: groupAgain, metadata: groupMetadataAgain } =
+      await bindings.CONFIG_KV.getWithMetadata('group:foo')
+    expect(groupAgain).toBe('{"environments":["production"]}')
+    expect(groupMetadataAgain).toStrictEqual(defaultMetadata)
+
+    const { value: envAgain, metadata: envMetadataAgain } =
+      await bindings.CONFIG_KV.getWithMetadata('env:production')
+    expect(envAgain).toBe('{"groups":["foo"]}')
+    expect(envMetadataAgain).toStrictEqual(defaultMetadata)
   })
 
-  test('has keys', async () => {
+  test('success with multiple environments', async () => {
     await bindings.CONFIG_KV.put(
-      'group:foo',
-      JSON.stringify({ environments: ['staging'] }),
+      'env:production',
+      JSON.stringify({ groups: [] }),
       {
-        metadata: {
-          created: 123
-        }
+        metadata: defaultMetadata
       }
     )
-    await bindings.CONFIG_KV.put('entry:foo:staging:bar', 'baz')
-
-    const req = createRequest('POST', url, null)
-    const res = await POST(req)
-    expect(res).toHaveProperty('status', 400)
-    expect(await res.text()).toBe('{"error":"Group foo still has keys"}')
-    expect(await bindings.CONFIG_KV.get('group:foo')).toBe(
-      '{"environments":["staging"]}'
-    )
-    expect(await bindings.CONFIG_KV.get('entry:foo:staging:bar')).toBe('baz')
-  })
-
-  test('has multiple keys', async () => {
     await bindings.CONFIG_KV.put(
-      'group:foo',
-      JSON.stringify({ environments: ['production', 'staging', 'demo'] }),
+      'env:staging',
+      JSON.stringify({ groups: [] }),
       {
-        metadata: {
-          created: 123
-        }
+        metadata: defaultMetadata
       }
     )
-    await bindings.CONFIG_KV.put('entry:foo:staging:bar', 'baz')
-    await bindings.CONFIG_KV.put('entry:foo:production:bar', 'baz')
-
-    const req = createRequest('POST', url, null)
-    const res = await POST(req)
-    expect(res).toHaveProperty('status', 400)
-    expect(await res.text()).toBe('{"error":"Group foo still has keys"}')
-    expect(await bindings.CONFIG_KV.get('group:foo')).toBe(
-      '{"environments":["production","staging","demo"]}'
+    await bindings.CONFIG_KV.put(
+      'group:foo',
+      JSON.stringify({ environments: [] }),
+      {
+        metadata: defaultMetadata
+      }
     )
+
+    const body = JSON.stringify({ environments: ['production', 'staging'] })
+    const req = createRequest('POST', url, body)
+    const res = await POST(req)
+    expect(res.status).toBe(200)
+    expect(await res.text()).toBe('{"message":"success"}')
+
+    const { value: group, metadata: groupMetadata } =
+      await bindings.CONFIG_KV.getWithMetadata('group:foo')
+    expect(group).toBe('{"environments":["production","staging"]}')
+    expect(groupMetadata).toStrictEqual(defaultMetadata)
+
+    const { value: env, metadata: envMetadata } =
+      await bindings.CONFIG_KV.getWithMetadata('env:production')
+    expect(env).toBe('{"groups":["foo"]}')
+    expect(envMetadata).toStrictEqual(defaultMetadata)
+
+    const { value: env2, metadata: envMetadata2 } =
+      await bindings.CONFIG_KV.getWithMetadata('env:staging')
+    expect(env2).toBe('{"groups":["foo"]}')
+    expect(envMetadata2).toStrictEqual(defaultMetadata)
   })
 
   test('404 not found', async () => {
-    const req = createRequest('GET', '/api/groups/not-found/delete', null)
+    const body = JSON.stringify({ environments: ['production'] })
+    const req = createRequest('POST', '/api/groups/not-found/link', body)
     const res = await POST(req)
     expect(res).toHaveProperty('status', 404)
     expect(await res.text()).toBe('{"error":"not found"}')

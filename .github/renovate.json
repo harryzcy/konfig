@@ -6,5 +6,11 @@
   ],
   "labels": [
     "dependencies"
+  ],
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["next-on-pages"],
+      "groupName": "next-on-pages"
+    }
   ]
 }

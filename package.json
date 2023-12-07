@@ -15,7 +15,7 @@
     "pages:dev": "npx wrangler pages dev .vercel/output/static --compatibility-date=2023-11-21 --compatibility-flag=nodejs_compat"
   },
   "dependencies": {
-    "next": "14.0.3",
+    "next": "14.0.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "zod": "3.22.4"
@@ -33,7 +33,7 @@
     "@vitest/coverage-v8": "1.0.2",
     "autoprefixer": "10.4.16",
     "eslint": "8.55.0",
-    "eslint-config-next": "14.0.3",
+    "eslint-config-next": "14.0.4",
     "eslint-plugin-next-on-pages": "1.8.1",
     "postcss": "8.4.32",
     "prettier": "3.1.0",

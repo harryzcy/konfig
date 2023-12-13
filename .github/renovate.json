@@ -1,6 +1,7 @@
 {
   "extends": [
-    "config:recommended",
+    "config:best-practices",
+    ":pinDependencies",
     ":disableDependencyDashboard",
     ":automergeMinor"
   ],
@@ -9,7 +10,9 @@
   ],
   "packageRules": [
     {
-      "matchPackagePatterns": ["next-on-pages"],
+      "matchPackagePatterns": [
+        "next-on-pages"
+      ],
       "groupName": "next-on-pages"
     }
   ]

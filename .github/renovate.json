@@ -15,5 +15,8 @@
       ],
       "groupName": "next-on-pages"
     }
+  ],
+  "postUpdateOptions": [
+    "npmDedupe"
   ]
 }

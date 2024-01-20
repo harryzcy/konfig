@@ -33,7 +33,7 @@ jobs:
         run: npm run pages:build
 
       - name: Publish to Cloudflare Pages
-        if: github.event_name == 'push' && github.repository_owner == 'harryzcy'
+        if: github.event_name == 'push' && github.repository_owner == 'harryzcy' && github.actor != 'dependabot[bot]'
         uses: cloudflare/pages-action@f0a1cd58cd66095dee69bfa18fa5efd1dde93bca # v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}

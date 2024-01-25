@@ -14,6 +14,14 @@
         "next-on-pages"
       ],
       "groupName": "next-on-pages"
+    },
+    {
+      "matchManagers": [
+        "github-actions"
+      ],
+      "digest": {
+        "automerge": true
+      }
     }
   ],
   "postUpdateOptions": [

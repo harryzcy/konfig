@@ -15,7 +15,11 @@ export default function GroupNav() {
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>
+    return <div>Failed to load</div>
+  }
+
+  if (!data) {
+    return <div>No data</div>
   }
 
   return (

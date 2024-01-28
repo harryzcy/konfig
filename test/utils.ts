@@ -8,7 +8,7 @@ export function createRequest(
 ) {
   return new Request(new URL('https://konfig.com' + path), {
     method,
-    body: body,
+    body,
     headers
   })
 }

@@ -1,5 +1,5 @@
 import { parseNewGroupRequest } from '@/src/parse'
-import { errorResponse, successResponse } from '@/src/response'
+import { errorResponse, jsonResponse, successResponse } from '@/src/response'
 import { getUnixTimestamp } from '@/src/time'
 import type {
   Env,
@@ -9,6 +9,25 @@ import type {
 } from '@/src/types'
 
 export const runtime = 'edge'
+
+export async function GET(req: Request) {
+  console.log('Handling GET request')
+
+  const { CONFIG_KV } = process.env as unknown as Env
+
+  const prefix = 'group:'
+  console.log(`Getting key with prefix ${prefix} from KV`)
+  const value = await CONFIG_KV.list<GroupMetadata>({
+    prefix
+  })
+  console.log(`Got key with prefix ${prefix} from KV`)
+
+  const keys = value.keys.map((key) => key.name.replace(prefix, ''))
+
+  return jsonResponse({
+    keys
+  })
+}
 
 export async function POST(req: Request) {
   console.log('Handling POST request')

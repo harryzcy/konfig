@@ -27,7 +27,7 @@ describe('GET /api/groups', () => {
     const res = await GET(req)
     expect(res).toHaveProperty('status', 200)
     const result = await res.json()
-    expect(result).toHaveProperty('keys')
+    expect(result).toHaveProperty('groups')
     expect(result['groups']).toHaveLength(1)
     expect(result['groups']).toBeInstanceOf(Array)
     expect(result['groups']).toContain('project-1')

@@ -18,8 +18,8 @@ export default function GroupNav() {
     return <div>Failed to load</div>
   }
 
-  if (!data) {
-    return <div>No data</div>
+  if (!data || data.groups.length === 0) {
+    return <div>No groups</div>
   }
 
   return (

@@ -60,6 +60,6 @@
     "vercel": "33.4.1",
     "vitest": "1.2.2",
     "vitest-environment-miniflare": "2.14.2",
-    "wrangler": "3.25.0"
+    "wrangler": "3.26.0"
   }
 }

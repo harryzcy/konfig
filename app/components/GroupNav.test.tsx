@@ -2,6 +2,7 @@
 import GroupNav from './GroupNav'
 import '@testing-library/jest-dom'
 import { render, screen, waitFor } from '@testing-library/react'
+import user from '@testing-library/user-event'
 import { http, HttpResponse } from 'msw'
 import { setupServer } from 'msw/node'
 import { afterAll, afterEach, beforeAll, describe, expect, test } from 'vitest'
@@ -11,6 +12,9 @@ const server = setupServer(
     return HttpResponse.json({
       groups: ['group1', 'group2']
     })
+  }),
+  http.post('/api/groups', () => {
+    return HttpResponse.text('ok')
   })
 )
 
@@ -31,5 +35,21 @@ describe('GroupNav component', () => {
     for (const group of ['group1', 'group2']) {
       expect(screen.getByText(group)).toBeInTheDocument()
     }
+    expect(screen.queryByText('not-exist')).toBeNull()
+  })
+
+  test('add group', async () => {
+    render(<GroupNav />)
+
+    const addGroupButton = screen.getByLabelText('add group')
+    await user.click(addGroupButton)
+
+    const input = screen.getByPlaceholderText('Type group name here')
+    expect(input).toBeInTheDocument()
+    user.type(input, 'group3')
+
+    // outside click
+    await user.click(document.body)
+    expect(screen.queryByPlaceholderText('Type group name here')).toBeNull()
   })
 })

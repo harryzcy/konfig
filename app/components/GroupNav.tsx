@@ -1,7 +1,6 @@
 'use client'
 
 import { useOutsideClick } from '../hooks/useOutsideClick'
-import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -48,7 +47,7 @@ export default function GroupNav() {
             setIsDraftActive(true)
           }}
         >
-          <PlusIcon className="w-4 h-4" />
+          <PlusIcon className="w-4 h-4" aria-label="add group" />
         </span>
       </div>
 

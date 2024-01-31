@@ -1,0 +1,2 @@
+ignore:
+  - "tailwind.config.ts"

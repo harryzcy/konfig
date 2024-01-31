@@ -38,7 +38,7 @@ describe('GroupNav component', () => {
     expect(screen.queryByText('not-exist')).toBeNull()
   })
 
-  test('add group', async () => {
+  test('add group - dismissed', async () => {
     render(<GroupNav />)
 
     const addGroupButton = screen.getByLabelText('add group')
@@ -46,7 +46,23 @@ describe('GroupNav component', () => {
 
     const input = screen.getByPlaceholderText('Type group name here')
     expect(input).toBeInTheDocument()
-    user.type(input, 'group3')
+    expect(input.nodeName).toBe('INPUT')
+
+    // outside click
+    await user.click(document.body)
+    expect(screen.queryByPlaceholderText('Type group name here')).toBeNull()
+  })
+
+  test('add group - succeed', async () => {
+    render(<GroupNav />)
+
+    const addGroupButton = screen.getByLabelText('add group')
+    await user.click(addGroupButton)
+
+    const input = screen.getByPlaceholderText('Type group name here')
+
+    expect(input).toBeInTheDocument()
+    await user.type(input, 'group3')
 
     // outside click
     await user.click(document.body)

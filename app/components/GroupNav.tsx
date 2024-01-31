@@ -52,7 +52,11 @@ export default function GroupNav() {
         </span>
       </div>
 
-      {isLoading && <div className="italic">Loading...</div>}
+      {isLoading && (
+        <div className="italic" aria-label="loading">
+          Loading...
+        </div>
+      )}
 
       {!isLoading && error && <div className="italic">Failed to load</div>}
 

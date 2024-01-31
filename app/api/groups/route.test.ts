@@ -13,7 +13,7 @@ describe('GET /api/groups', () => {
     const req = createRequest('GET', url, null)
     const res = await GET(req)
     expect(res).toHaveProperty('status', 200)
-    expect(await res.json()).toEqual({ keys: [] })
+    expect(await res.json()).toEqual({ groups: [] })
   })
 
   test('non-empty', async () => {
@@ -27,10 +27,10 @@ describe('GET /api/groups', () => {
     const res = await GET(req)
     expect(res).toHaveProperty('status', 200)
     const result = await res.json()
-    expect(result).toHaveProperty('keys')
-    expect(result['keys']).toHaveLength(1)
-    expect(result['keys']).toBeInstanceOf(Array)
-    expect(result['keys']).toContain('project-1')
+    expect(result).toHaveProperty('groups')
+    expect(result['groups']).toHaveLength(1)
+    expect(result['groups']).toBeInstanceOf(Array)
+    expect(result['groups']).toContain('project-1')
   })
 })
 

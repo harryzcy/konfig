@@ -22,10 +22,10 @@ export async function GET(req: Request) {
   })
   console.log(`Got key with prefix ${prefix} from KV`)
 
-  const keys = value.keys.map((key) => key.name.replace(prefix, ''))
+  const groups = value.keys.map((key) => key.name.replace(prefix, ''))
 
   return jsonResponse({
-    keys
+    groups
   })
 }
 

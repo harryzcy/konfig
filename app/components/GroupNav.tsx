@@ -28,10 +28,13 @@ const NewGroupFormSchema = z.object({
 })
 
 export default function GroupNav() {
-  const { data, error, isLoading } = useSWR('/api/groups', async (url) => {
-    const res = await fetch(url)
-    return (await res.json()) as GroupResponse
-  })
+  const { data, error, isLoading, mutate } = useSWR(
+    '/api/groups',
+    async (url) => {
+      const res = await fetch(url)
+      return (await res.json()) as GroupResponse
+    }
+  )
 
   const [isDraftActive, setIsDraftActive] = useState<boolean>(false)
 
@@ -59,13 +62,17 @@ export default function GroupNav() {
 
       {isDraftActive && (
         <NewGroupForm
+          create={(group) => {
+            const original = data?.groups ?? []
+            mutate({ groups: [...original, group] })
+          }}
           cancel={() => {
             setIsDraftActive(false)
           }}
         />
       )}
 
-      {data?.groups.map((group) => (
+      {data?.groups.sort().map((group) => (
         <div key={group}>
           <span>{group}</span>
         </div>
@@ -74,7 +81,10 @@ export default function GroupNav() {
   )
 }
 
-function NewGroupForm(props: { cancel: () => void }) {
+function NewGroupForm(props: {
+  create: (group: string) => void
+  cancel: () => void
+}) {
   const newGroupForm = useForm<z.infer<typeof NewGroupFormSchema>>({
     resolver: zodResolver(NewGroupFormSchema),
     defaultValues: {
@@ -95,6 +105,7 @@ function NewGroupForm(props: { cancel: () => void }) {
     if (!res.ok) {
       console.error('Failed to create group')
     }
+    props.create(data.group)
     newGroupForm.reset()
     props.cancel()
   }

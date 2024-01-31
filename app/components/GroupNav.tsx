@@ -34,7 +34,6 @@ export default function GroupNav() {
   })
 
   const [isDraftActive, setIsDraftActive] = useState<boolean>(false)
-  const [draftGroup, setDraftGroup] = useState<string>('')
 
   return (
     <div className="p-2">
@@ -83,8 +82,21 @@ function NewGroupForm(props: { cancel: () => void }) {
     }
   })
 
-  const onSubmit = (data: z.infer<typeof NewGroupFormSchema>) => {
-    console.log('submit')
+  const onSubmit = async (data: z.infer<typeof NewGroupFormSchema>) => {
+    const res = await fetch('/api/groups', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: data.group
+      })
+    })
+    if (!res.ok) {
+      console.error('Failed to create group')
+    }
+    newGroupForm.reset()
+    props.cancel()
   }
 
   const formRef = useRef<HTMLFormElement>(null)

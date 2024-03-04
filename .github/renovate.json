@@ -24,6 +24,13 @@
       }
     }
   ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "labels": [
+      "dependencies",
+      "skip-changelog"
+    ]
+  },
   "postUpdateOptions": [
     "npmDedupe"
   ]

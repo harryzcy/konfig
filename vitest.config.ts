@@ -9,7 +9,8 @@ export default defineConfig({
     environment: 'miniflare',
     environmentOptions: {
       kvNamespaces: ['CONFIG_KV']
-    }
+    },
+    include: ['functions/**/*.test.ts', 'functions/**/*.test.tsx']
   },
   resolve: {
     alias: {

@@ -1,8 +1,7 @@
 import { POST } from './route'
 import { Env } from '@/src/types'
 import { createRequest } from '@/test/utils'
-import { describe } from 'node:test'
-import { expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest'
 
 const bindings = getMiniflareBindings() as Env
 

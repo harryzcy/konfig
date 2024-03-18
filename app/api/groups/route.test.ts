@@ -1,8 +1,7 @@
 import { GET, POST } from './route'
 import { Env } from '@/src/types'
 import { createRequest } from '@/test/utils'
-import { describe } from 'node:test'
-import { expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest'
 
 const bindings = getMiniflareBindings() as Env
 
@@ -26,7 +25,7 @@ describe('GET /api/groups', () => {
     const req = createRequest('GET', url, null)
     const res = await GET(req)
     expect(res).toHaveProperty('status', 200)
-    const result = await res.json()
+    const result = (await res.json()) as { groups: string[] }
     expect(result).toHaveProperty('groups')
     expect(result['groups']).toHaveLength(1)
     expect(result['groups']).toBeInstanceOf(Array)

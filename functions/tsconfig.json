@@ -4,6 +4,9 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "lib": ["esnext"],
-    "types": ["@cloudflare/workers-types"]
+    "types": ["@cloudflare/workers-types"],
+    "paths": {
+      "@/*": ["../*"]
+    }
   }
 }

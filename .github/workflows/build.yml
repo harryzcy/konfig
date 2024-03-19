@@ -37,10 +37,9 @@ jobs:
 
       - name: Publish to Cloudflare Pages
         if: github.event_name == 'push' && github.repository_owner == 'harryzcy' && github.actor != 'dependabot[bot]'
-        uses: cloudflare/pages-action@f0a1cd58cd66095dee69bfa18fa5efd1dde93bca # v1.5.0
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: konfig
-          directory: .vercel/output/static
+          command: pages deploy --project-name=konfig .vercel/output/static
           wranglerVersion: '3'

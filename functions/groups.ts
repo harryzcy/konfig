@@ -8,12 +8,10 @@ import type {
   GroupValue
 } from '@/src/types'
 
-export const runtime = 'edge'
-
-export async function GET(req: Request) {
+export const onRequestGet: PagesFunction<Env> = async (context) => {
   console.log('Handling GET request')
 
-  const { CONFIG_KV } = process.env as unknown as Env
+  const { CONFIG_KV } = context.env
 
   const prefix = 'group:'
   console.log(`Getting key with prefix ${prefix} from KV`)
@@ -29,12 +27,12 @@ export async function GET(req: Request) {
   })
 }
 
-export async function POST(req: Request) {
+export const onRequestPost: PagesFunction = async (context) => {
   console.log('Handling POST request')
 
   let env: NewGroupRequest
   try {
-    env = parseNewGroupRequest(await req.text())
+    env = parseNewGroupRequest(await context.request.text())
   } catch (e) {
     const error = e as Error
     return errorResponse(error)

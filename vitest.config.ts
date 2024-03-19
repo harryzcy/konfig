@@ -1,14 +1,20 @@
+import { defineWorkersConfig } from '@cloudflare/vitest-pool-workers/config'
 import react from '@vitejs/plugin-react'
 import path from 'path'
-import { defineConfig } from 'vitest/config'
 
-export default defineConfig({
+export default defineWorkersConfig({
   plugins: [react()],
   test: {
     globals: true,
-    environment: 'miniflare',
-    environmentOptions: {
-      kvNamespaces: ['CONFIG_KV']
+    poolOptions: {
+      workers: {
+        wrangler: {
+          configPath: './wrangler.toml'
+        },
+        miniflare: {
+          kvNamespaces: ['CONFIG_KV']
+        }
+      }
     },
     include: ['functions/**/*.test.ts', 'functions/**/*.test.tsx']
   },

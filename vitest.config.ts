@@ -6,9 +6,15 @@ export default defineWorkersConfig({
   plugins: [react()],
   test: {
     globals: true,
-    environment: 'miniflare',
-    environmentOptions: {
-      kvNamespaces: ['CONFIG_KV']
+    poolOptions: {
+      workers: {
+        wrangler: {
+          configPath: './wrangler.toml'
+        },
+        miniflare: {
+          kvNamespaces: ['CONFIG_KV']
+        }
+      }
     },
     include: ['functions/**/*.test.ts', 'functions/**/*.test.tsx']
   },

@@ -1,15 +1,16 @@
 import { onRequestGet, onRequestPost } from './groups'
 import { Env } from '@/src/types'
 import { createRequest } from '@/test/utils'
-import { env } from 'cloudflare:test'
+import { createExecutionContext, env } from 'cloudflare:test'
 import { describe, expect, test } from 'vitest'
 
 describe('GET /api/groups', () => {
   const url = '/api/groups'
 
   test('empty', async () => {
+    const ctx = createExecutionContext()
     const req = createRequest('GET', url, null)
-    const res = await onRequestGet(req)
+    const res = await onRequestGet({ request: req })
     expect(res).toHaveProperty('status', 200)
     expect(await res.json()).toEqual({ groups: [] })
   })
@@ -48,7 +49,7 @@ describe('POST /api/groups', () => {
 
   test('invalid json', async () => {
     const req = createRequest('POST', url, 'invalid input')
-    const res = await POST(req)
+    const res = await onRequestPost(req)
     expect(res).toHaveProperty('status', 400)
     expect(await res.text()).toBe(
       '{"error":"invalid input: input is not valid JSON"}'

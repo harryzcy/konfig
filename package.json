@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@cloudflare/next-on-pages": "1.11.0",
-    "@cloudflare/workers-types": "4.20240402.0",
+    "@cloudflare/workers-types": "4.20240403.0",
     "@miniflare/shared-test-environment": "2.14.2",
     "@testing-library/jest-dom": "6.4.2",
     "@testing-library/react": "14.2.2",

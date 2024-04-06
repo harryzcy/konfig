@@ -3,11 +3,9 @@ import SideBar from '@/app/components/SideBar'
 
 export default function Page({ params }: { params: { slug: string } }) {
   return (
-    <div>
+    <main className="min-h-screen flex">
       <SideBar />
-      <h1>Group: {params.slug}</h1>
-
       <GroupView groupName={params.slug} />
-    </div>
+    </main>
   )
 }

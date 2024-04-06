@@ -17,6 +17,7 @@ export default defineWorkersConfig({
       }
     },
     include: ['functions/**/*.test.ts', 'functions/**/*.test.tsx']
+    // include: ['src/**/*.test.ts', 'src/**/*.test.tsx']
   },
   resolve: {
     alias: {

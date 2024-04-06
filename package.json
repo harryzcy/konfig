@@ -3,16 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
     "test": "vitest run --coverage",
     "prettier": "prettier --config .prettierrc '**/*.{ts,tsx,js,css}' --write",
-    "pages:build": "npx @cloudflare/next-on-pages",
-    "pages:deploy": "npm run pages:build && wrangler pages deploy .vercel/output/static",
-    "pages:watch": "npx @cloudflare/next-on-pages --watch",
-    "pages:dev": "npx wrangler pages dev .vercel/output/static --compatibility-date=2023-12-01 --compatibility-flag=nodejs_compat"
+    "build": "npx @cloudflare/next-on-pages",
+    "deploy": "npm run pages:build && wrangler pages deploy .vercel/output/static",
+    "watch": "npx @cloudflare/next-on-pages --watch",
+    "dev": "npx wrangler pages dev .vercel/output/static --compatibility-date=2023-12-01 --compatibility-flag=nodejs_compat"
   },
   "dependencies": {
     "@heroicons/react": "2.1.3",

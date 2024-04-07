@@ -18,7 +18,7 @@ import { useForm } from 'react-hook-form'
 import useSWR from 'swr'
 import { z } from 'zod'
 
-interface GroupResponse {
+interface GroupListResponse {
   groups: string[]
 }
 
@@ -33,7 +33,7 @@ export default function GroupNav() {
     '/api/groups',
     async (url) => {
       const res = await fetch(url)
-      return (await res.json()) as GroupResponse
+      return (await res.json()) as GroupListResponse
     }
   )
 

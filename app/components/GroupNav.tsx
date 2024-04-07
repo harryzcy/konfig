@@ -1,6 +1,7 @@
 'use client'
 
 import { useOutsideClick } from '../hooks/useOutsideClick'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -11,6 +12,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { PlusIcon } from '@heroicons/react/24/outline'
 import { zodResolver } from '@hookform/resolvers/zod'
+import Link from 'next/link'
 import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import useSWR from 'swr'
@@ -38,7 +40,7 @@ export default function GroupNav() {
   const [isDraftActive, setIsDraftActive] = useState<boolean>(false)
 
   return (
-    <div className="p-2">
+    <div className="p-4">
       <div className="flex justify-between items-center text-sm pb-2">
         <span>Groups</span>
         <span
@@ -76,8 +78,10 @@ export default function GroupNav() {
       )}
 
       {data?.groups.sort().map((group) => (
-        <div key={group}>
-          <span>{group}</span>
+        <div key={group} className="">
+          <Button variant="outline" asChild className="px-2 w-full">
+            <Link href={`groups/${group}`}>{group}</Link>
+          </Button>
         </div>
       ))}
     </div>

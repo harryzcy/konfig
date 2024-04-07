@@ -7,8 +7,7 @@ import {
   parseNewGroupRequest,
   parseGroupValue
 } from './parse'
-import { describe } from 'node:test'
-import { expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest'
 
 test('key', () => {
   const testCases = [

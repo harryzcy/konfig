@@ -1,5 +1,5 @@
 ### Cloudflare
-wrangler.toml
+# wrangler.toml
 .wrangler
 
 ### Visual Studio Code

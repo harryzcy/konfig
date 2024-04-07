@@ -3,16 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "test": "vitest run --coverage",
-    "prettier": "prettier --config .prettierrc 'app/**/*.{ts,tsx,js,css}' --write",
-    "pages:build": "npx @cloudflare/next-on-pages",
-    "pages:deploy": "npm run pages:build && wrangler pages deploy .vercel/output/static",
-    "pages:watch": "npx @cloudflare/next-on-pages --watch",
-    "pages:dev": "npx wrangler pages dev .vercel/output/static --compatibility-date=2023-12-01 --compatibility-flag=nodejs_compat"
+    "test": "vitest run",
+    "prettier": "prettier --config .prettierrc '**/*.{ts,tsx,js,css}' --write",
+    "build": "npx @cloudflare/next-on-pages",
+    "deploy": "npm run pages:build && wrangler pages deploy public",
+    "dev": "npx wrangler pages dev public --compatibility-date=2023-12-01 --compatibility-flag=nodejs_compat"
   },
   "dependencies": {
     "@heroicons/react": "2.1.3",
@@ -22,7 +17,6 @@
     "@radix-ui/react-slot": "1.0.2",
     "class-variance-authority": "0.7.0",
     "clsx": "2.1.0",
-    "next": "14.1.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "7.51.2",
@@ -33,8 +27,8 @@
   },
   "devDependencies": {
     "@cloudflare/next-on-pages": "1.11.0",
+    "@cloudflare/vitest-pool-workers": "0.1.17",
     "@cloudflare/workers-types": "4.20240405.0",
-    "@miniflare/shared-test-environment": "2.14.2",
     "@testing-library/jest-dom": "6.4.2",
     "@testing-library/react": "14.2.2",
     "@testing-library/user-event": "14.5.2",
@@ -45,7 +39,7 @@
     "@typescript-eslint/eslint-plugin": "7.5.0",
     "@typescript-eslint/parser": "7.5.0",
     "@vitejs/plugin-react": "4.2.1",
-    "@vitest/coverage-v8": "1.4.0",
+    "@vitest/coverage-v8": "1.3.0",
     "autoprefixer": "10.4.19",
     "eslint": "8.57.0",
     "eslint-config-next": "14.1.4",
@@ -55,10 +49,10 @@
     "postcss": "8.4.38",
     "prettier": "3.2.5",
     "prettier-plugin-tailwindcss": "0.5.13",
+    "pretty-format": "^29.7.0",
     "tailwindcss": "3.4.3",
-    "typescript": "5.4.4",
     "vercel": "33.7.0",
-    "vitest": "1.4.0",
+    "vitest": "1.3.0",
     "vitest-environment-miniflare": "2.14.2",
     "wrangler": "3.48.0"
   }

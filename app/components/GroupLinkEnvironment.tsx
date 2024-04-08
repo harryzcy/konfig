@@ -23,7 +23,7 @@ import {
 } from '@/components/ui/popover'
 import { toast } from '@/components/ui/use-toast'
 import { cn } from '@/lib/utils'
-import { GroupValue } from '@/src/types'
+import { GroupValue, NewEnvironmentRequest } from '@/src/types'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/24/outline'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMemo, useState } from 'react'
@@ -97,7 +97,7 @@ export default function GroupLinkEnvironment(props: GroupLinkEnvironmentProps) {
   }
   const requestNewEnvironment = async (
     url: string,
-    { arg }: { arg: { name: string } }
+    { arg }: { arg: NewEnvironmentRequest }
   ) => {
     const resp = await fetch(url, {
       method: 'POST',

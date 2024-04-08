@@ -5,9 +5,9 @@ export const runtime = 'edge'
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex">
+    <div className="min-h-screen flex">
       <SideBar />
       <GroupEmpty />
-    </main>
+    </div>
   )
 }

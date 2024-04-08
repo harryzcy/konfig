@@ -64,11 +64,9 @@ export default function GroupLinkEnvironment(props: GroupLinkEnvironmentProps) {
     if (!inputValue) {
       return originalEnvironments
     }
-
     if (environments.includes(inputValue)) {
       return originalEnvironments
     }
-
     return [
       {
         environment: inputValue,
@@ -97,31 +95,76 @@ export default function GroupLinkEnvironment(props: GroupLinkEnvironmentProps) {
       throw new Error('Failed to link environment to group')
     }
   }
+  const requestNewEnvironment = async (
+    url: string,
+    { arg }: { arg: { name: string } }
+  ) => {
+    const resp = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(arg)
+    })
+    if (!resp.ok) {
+      throw new Error('Failed to create new environment')
+    }
+  }
 
-  const { trigger } = useSWRMutation(
+  const { trigger: newEnvironmentTrigger } = useSWRMutation(
+    `/api/environments`,
+    requestNewEnvironment
+  )
+  const { trigger: linkTrigger } = useSWRMutation(
     `/api/groups/${groupName}/link`,
-    requestLinkEnvironment,
-    { throwOnError: false }
+    requestLinkEnvironment
   )
   const onSubmit = async (data: z.infer<typeof FormValue>) => {
+    const isExistingEnvironment = environments.includes(data.environment)
+    if (!isExistingEnvironment) {
+      try {
+        await newEnvironmentTrigger(
+          { name: data.environment },
+          {
+            onSuccess: () => {
+              toast({
+                title: 'Request successful',
+                description: `Environment ${data.environment} created successfully`
+              })
+            },
+            onError: () => {
+              toast({
+                title: 'Request failed',
+                description: `Failed to create environment ${data.environment}, please try again later.`,
+                variant: 'destructive'
+              })
+            }
+          }
+        )
+      } catch (error) {
+        return
+      }
+    }
+
     const value: GroupValue = {
       environments: [...currentEnvironments, data.environment]
     }
-    await trigger(value, {
-      onSuccess: () => {
-        toast({
-          title: 'Request successful',
-          description: `Environment added to group ${groupName} successfully`
-        })
-      },
-      onError: () => {
-        toast({
-          title: 'Request failed',
-          description: `Failed to add environment to group ${groupName}, please try again later.`,
-          variant: 'destructive'
-        })
-      }
-    })
+    try {
+      await linkTrigger(value, {
+        onSuccess: () => {
+          toast({
+            title: 'Request successful',
+            description: `Environment added to group ${groupName} successfully`
+          })
+        },
+        onError: () => {
+          toast({
+            title: 'Request failed',
+            description: `Failed to add environment to group ${groupName}, please try again later.`,
+            variant: 'destructive'
+          })
+        }
+      })
+    } catch (error) {
+      return
+    }
   }
 
   if (isLoading) {

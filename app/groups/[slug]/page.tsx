@@ -1,13 +1,18 @@
+'use client'
+
 import GroupView from '@/app/components/GroupView'
 import SideBar from '@/app/components/SideBar'
+import { Toaster } from '@/components/ui/toaster'
 
 export const runtime = 'edge'
 
 export default function Page({ params }: { params: { slug: string } }) {
   return (
-    <main className="min-h-screen flex">
+    <div className="min-h-screen flex">
       <SideBar />
       <GroupView groupName={params.slug} />
-    </main>
+
+      <Toaster />
+    </div>
   )
 }

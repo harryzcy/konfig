@@ -1,12 +1,6 @@
 {
   "extends": [
-    "config:best-practices",
-    ":pinDependencies",
-    ":disableDependencyDashboard",
-    ":automergeMinor"
-  ],
-  "labels": [
-    "dependencies"
+    "github>harryzcy/renovate-config"
   ],
   "packageRules": [
     {
@@ -14,24 +8,6 @@
         "next-on-pages"
       ],
       "groupName": "next-on-pages"
-    },
-    {
-      "matchManagers": [
-        "github-actions"
-      ],
-      "digest": {
-        "automerge": true
-      }
     }
-  ],
-  "lockFileMaintenance": {
-    "enabled": true,
-    "labels": [
-      "dependencies",
-      "skip-changelog"
-    ]
-  },
-  "postUpdateOptions": [
-    "npmDedupe"
   ]
 }

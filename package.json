@@ -42,7 +42,7 @@
     "@cloudflare/next-on-pages": "1.11.3",
     "@cloudflare/workers-types": "4.20240605.0",
     "@miniflare/shared-test-environment": "2.14.2",
-    "@testing-library/jest-dom": "6.4.5",
+    "@testing-library/jest-dom": "6.4.6",
     "@testing-library/react": "15.0.7",
     "@testing-library/user-event": "14.5.2",
     "@trivago/prettier-plugin-sort-imports": "4.3.0",

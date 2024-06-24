@@ -39,7 +39,7 @@
     "zod": "3.23.8"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "1.11.3",
+    "@cloudflare/next-on-pages": "1.12.0",
     "@cloudflare/workers-types": "4.20240620.0",
     "@miniflare/shared-test-environment": "2.14.2",
     "@testing-library/jest-dom": "6.4.6",
@@ -56,7 +56,7 @@
     "autoprefixer": "10.4.19",
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.4",
-    "eslint-plugin-next-on-pages": "1.11.3",
+    "eslint-plugin-next-on-pages": "1.12.0",
     "jsdom": "24.1.0",
     "msw": "2.3.1",
     "postcss": "8.4.38",

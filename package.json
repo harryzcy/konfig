@@ -64,7 +64,7 @@
     "prettier-plugin-tailwindcss": "0.6.5",
     "tailwindcss": "3.4.6",
     "typescript": "5.5.3",
-    "vercel": "34.4.0",
+    "vercel": "35.0.3",
     "vitest": "2.0.3",
     "vitest-environment-miniflare": "2.14.2",
     "wrangler": "3.65.0"

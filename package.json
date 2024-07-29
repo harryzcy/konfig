@@ -39,7 +39,7 @@
     "zod": "3.23.8"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "1.12.1",
+    "@cloudflare/next-on-pages": "1.13.0",
     "@cloudflare/workers-types": "4.20240725.0",
     "@miniflare/shared-test-environment": "2.14.2",
     "@testing-library/jest-dom": "6.4.8",

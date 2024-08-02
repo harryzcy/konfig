@@ -53,7 +53,7 @@
     "@typescript-eslint/parser": "8.0.0",
     "@vitejs/plugin-react": "4.3.1",
     "@vitest/coverage-v8": "2.0.5",
-    "autoprefixer": "10.4.19",
+    "autoprefixer": "10.4.20",
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.5",
     "eslint-plugin-next-on-pages": "1.13.1",

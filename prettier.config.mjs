@@ -1,12 +1,12 @@
 const config = {
-  trailingComma: 'none',
-  tabWidth: 4,
-  semi: false,
-  singleQuote: true,
-  plugins: [
-    'prettier-plugin-tailwindcss',
-    '@trivago/prettier-plugin-sort-imports'
-  ]
+    trailingComma: 'none',
+    tabWidth: 2,
+    semi: false,
+    singleQuote: true,
+    plugins: [
+        'prettier-plugin-tailwindcss',
+        '@trivago/prettier-plugin-sort-imports'
+    ]
 }
 
 export default config

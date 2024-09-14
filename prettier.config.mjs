@@ -4,8 +4,10 @@ const config = {
     semi: false,
     singleQuote: true,
     plugins: [
-        'prettier-plugin-tailwindcss',
-        '@trivago/prettier-plugin-sort-imports'
+        await import('prettier-plugin-tailwindcss'),
+        await import('@trivago/prettier-plugin-sort-imports')
+        // 'prettier-plugin-tailwindcss',
+        // '@trivago/prettier-plugin-sort-imports'
     ]
 }
 

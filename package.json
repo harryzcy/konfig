@@ -58,7 +58,7 @@
     "eslint-config-next": "15.0.3",
     "eslint-plugin-next-on-pages": "1.13.5",
     "jsdom": "25.0.1",
-    "msw": "2.6.4",
+    "msw": "2.6.5",
     "postcss": "8.4.49",
     "prettier": "3.3.3",
     "prettier-plugin-tailwindcss": "0.6.8",

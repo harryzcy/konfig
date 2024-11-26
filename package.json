@@ -52,7 +52,7 @@
     "@typescript-eslint/eslint-plugin": "8.16.0",
     "@typescript-eslint/parser": "8.16.0",
     "@vitejs/plugin-react": "4.3.4",
-    "@vitest/coverage-v8": "2.1.5",
+    "@vitest/coverage-v8": "2.1.6",
     "autoprefixer": "10.4.20",
     "eslint": "8.57.1",
     "eslint-config-next": "15.0.3",
@@ -65,7 +65,7 @@
     "tailwindcss": "3.4.15",
     "typescript": "5.7.2",
     "vercel": "39.1.1",
-    "vitest": "2.1.5",
+    "vitest": "2.1.6",
     "vitest-environment-miniflare": "2.14.4",
     "wrangler": "3.90.0"
   }

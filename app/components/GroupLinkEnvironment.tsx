@@ -196,9 +196,9 @@ export default function GroupLinkEnvironment(props: GroupLinkEnvironmentProps) {
                       )}
                     >
                       {field.value
-                        ? environmentsAndInput.find(
+                        ? (environmentsAndInput.find(
                             (entry) => entry.environment === field.value
-                          )?.environment ?? 'Select environment...'
+                          )?.environment ?? 'Select environment...')
                         : 'Select environment...'}
                       <ChevronUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>

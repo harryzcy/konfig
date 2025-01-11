@@ -1,10 +1,9 @@
 'use client'
 
-import { useRouter } from 'next/router';
-
 import GroupView from '@/app/components/GroupView'
 import SideBar from '@/app/components/SideBar'
 import { Toaster } from '@/components/ui/toaster'
+import { useRouter } from 'next/router'
 
 export const runtime = 'edge'
 

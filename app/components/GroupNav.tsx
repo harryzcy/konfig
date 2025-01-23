@@ -44,7 +44,7 @@ export default function GroupNav() {
       <div className="flex justify-between items-center text-sm pb-2">
         <span>Groups</span>
         <span
-          className="p-1.5 cursor-pointer rounded-md hover:bg-gray-100 hover:dark:bg-gray-700"
+          className="p-1.5 cursor-pointer rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
           onClick={() => {
             setIsDraftActive(true)
           }}

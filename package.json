@@ -54,7 +54,7 @@
     "@typescript-eslint/parser": "8.23.0",
     "@vitejs/plugin-react": "4.3.4",
     "@vitest/coverage-v8": "3.0.5",
-    "eslint": "8.57.1",
+    "eslint": "9.19.0",
     "eslint-config-next": "15.1.6",
     "eslint-plugin-next-on-pages": "1.13.7",
     "jsdom": "26.0.0",

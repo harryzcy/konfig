@@ -41,5 +41,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy --project-name=konfig dist
+          command: pages deploy --project-name=konfig dist/client
           wranglerVersion: '3'

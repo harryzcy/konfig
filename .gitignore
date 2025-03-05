@@ -1,6 +1,8 @@
 ### Cloudflare
-wrangler.toml
 .wrangler
+
+# Vite
+dist
 
 ### Visual Studio Code
 .vscode/*
@@ -51,6 +53,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# Vite
-dist

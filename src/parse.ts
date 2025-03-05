@@ -8,7 +8,7 @@ import {
   NewGroupRequest,
   GroupMetadata,
   GroupValue
-} from './types'
+} from '../src-vite/types'
 import { z } from 'zod'
 
 const parseJson = (input: string): unknown => {

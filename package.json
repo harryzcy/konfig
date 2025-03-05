@@ -5,15 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "lint": "npx eslint .",
+    "lint": "eslint .",
     "test": "vitest run --coverage",
-    "prettier": "prettier --config prettier.config.mjs '{app,src,components,lib}/**/*.{ts,tsx,js,css}' --write",
-    "pages:build": "npx @cloudflare/next-on-pages",
-    "pages:deploy": "npm run pages:build && wrangler pages deploy .vercel/output/static",
-    "pages:watch": "npx @cloudflare/next-on-pages --watch",
-    "pages:dev": "npx wrangler pages dev .vercel/output/static --compatibility-date=2023-12-01 --compatibility-flag=nodejs_compat"
+    "prettier": "prettier --config prettier.config.mjs '{app,src,components,lib}/**/*.{ts,tsx,js,css}' --write"
   },
   "dependencies": {
     "@heroicons/react": "2.2.0",
@@ -67,6 +63,7 @@
     "prettier": "3.5.3",
     "prettier-plugin-tailwindcss": "0.6.11",
     "tailwindcss": "^4.0.9",
+    "tsc": "^2.0.4",
     "typescript": "5.8.2",
     "vercel": "39.4.2",
     "vite": "^6.2.0",

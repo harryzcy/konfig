@@ -2,4 +2,4 @@
 
 name = "konfig"
 compatibility_date = "2024-12-30"
-assets = { not_found_handling = "single-page-application" }
+assets = { not_found_handling = "single-page-application", directory = "dist" }

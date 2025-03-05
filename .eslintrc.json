@@ -7,5 +7,6 @@
     "comma-dangle": ["error", "never"],
     "semi": "off"
   },
-  "plugins": ["eslint-plugin-next-on-pages"]
+  "plugins": ["eslint-plugin-next-on-pages"],
+  "ignorePatterns": ["node_modules", "dist"]
 }

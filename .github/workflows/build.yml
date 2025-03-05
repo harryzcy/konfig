@@ -33,7 +33,7 @@ jobs:
         run: npm ci
 
       - name: Build Pages
-        run: npm run build-vite
+        run: npm run build
 
       - name: Publish to Cloudflare Pages
         if: github.event_name == 'push' && github.repository_owner == 'harryzcy' && github.actor != 'dependabot[bot]'

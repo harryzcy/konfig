@@ -1,11 +1,8 @@
 import { Hono } from 'hono'
 
-const app = new Hono<{ Bindings: Env }>()
+const app = new Hono()
 
 app.get('/api/', (c) => c.json({ name: 'Cloudflare' }))
-
-app.get('*', (c) => {
-  return c.env.ASSETS.fetch(c.req.raw)
-})
+app.get('/api/ping', (c) => c.text('pong'))
 
 export default app

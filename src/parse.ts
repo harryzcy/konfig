@@ -4,11 +4,9 @@ import {
   ConfigValue,
   NewEnvironmentRequest,
   EnvironmentValue,
-  EnvironmentMetadata,
   NewGroupRequest,
-  GroupMetadata,
   GroupValue
-} from '../src/types'
+} from '@/types'
 import { z } from 'zod'
 
 const parseJson = (input: string): unknown => {

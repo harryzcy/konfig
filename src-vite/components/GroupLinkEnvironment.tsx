@@ -1,6 +1,7 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
+import { cn } from '../lib/utils'
+import { Button } from './ui/button'
 import {
   Command,
   CommandEmpty,
@@ -8,21 +9,10 @@ import {
   CommandInput,
   CommandItem,
   CommandList
-} from '@/components/ui/command'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel
-} from '@/components/ui/form'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger
-} from '@/components/ui/popover'
-import { toast } from '@/components/ui/use-toast'
-import { cn } from '@/lib/utils'
+} from './ui/command'
+import { Form, FormControl, FormField, FormItem, FormLabel } from './ui/form'
+import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
+import { toast } from './ui/use-toast'
 import { GroupValue, NewEnvironmentRequest } from '@/src/types'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/24/outline'
 import { zodResolver } from '@hookform/resolvers/zod'

@@ -1,4 +1,4 @@
-import { type KVNamespace } from '@cloudflare/workers-types/experimental'
+import { type KVNamespace } from '@cloudflare/workers-types'
 import { z } from 'zod'
 
 export const Key = z.string().refine((value) => {

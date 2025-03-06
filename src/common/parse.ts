@@ -6,7 +6,7 @@ import {
   EnvironmentValue,
   NewGroupRequest,
   GroupValue
-} from '@/types'
+} from '@/common/types'
 import { z } from 'zod'
 
 const parseJson = (input: string): unknown => {

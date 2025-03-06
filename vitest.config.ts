@@ -8,34 +8,40 @@ export default defineWorkersConfig({
     coverage: {
       provider: 'istanbul'
     },
-
     typecheck: {
       enabled: true,
       tsconfig: 'tsconfig.test.json'
     },
-    // setupFiles: ['./jest-setup.ts'],
-    workspace: [
-      {
-        extends: true,
-        test: {
-          include: ['tests/*.test.ts', 'tests/**/*.test.ts'],
-          poolOptions: {
-            workers: {
-              wrangler: { configPath: './wrangler.toml' },
-              miniflare: {
-                kvNamespaces: ['CONFIG_KV']
-              }
-            }
-          }
+    poolOptions: {
+      workers: {
+        wrangler: { configPath: './wrangler.toml' },
+        miniflare: {
+          kvNamespaces: ['CONFIG_KV']
         }
       }
-      // {
-      //   extends: true,
-      //   test: {
-      //     include: ['tests/**/*.{node}.test.{ts,js}'],
-      //     environment: 'jsdom'
-      //   }
-      // }
+    },
+    workspace: [
+      {
+        // Vite code
+        test: {
+          include: ['src/*.test.ts', 'src/**/*.test.ts'],
+          environment: 'jsdom',
+          pool: 'forks'
+        },
+        setupFiles: ['./jest-setup.ts'],
+        resolve: {
+          alias: {
+            '@': new URL('./src/', import.meta.url).pathname
+          }
+        }
+      },
+      {
+        // Cloudflare Pages Functions code
+        extends: true,
+        test: {
+          include: ['tests/*.test.ts', 'tests/**/*.test.ts']
+        }
+      }
     ]
   },
   resolve: {

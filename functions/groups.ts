@@ -31,7 +31,6 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     return errorResponse(error)
   }
 
-  const { CONFIG_KV } = process.env as unknown as Env
   const key = `group:${env.name}`
   const value = {
     environments: []
@@ -41,7 +40,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   } as GroupMetadata
 
   console.log(`Storing key ${key} in KV`)
-  await CONFIG_KV.put(key, JSON.stringify(value), {
+  await context.env.CONFIG_KV.put(key, JSON.stringify(value), {
     metadata
   })
   console.log(`Stored key ${key} in KV`)

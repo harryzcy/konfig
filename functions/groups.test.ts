@@ -62,13 +62,13 @@ describe('POST /api/groups', () => {
 
   test('zod validation failed', async () => {
     const req = createRequest('POST', url, '{}')
-    const res = await POST(req)
+    const res = await onRequestPost.call(req)
     expect(res).toHaveProperty('status', 400)
     expect(await res.text()).toBe(
       '{"error":"invalid input: field name is invalid"}'
     )
     expect(
-      await bindings.CONFIG_KV.list({
+      await env.CONFIG_KV.list({
         prefix: 'group:'
       })
     ).toHaveProperty('keys', [])

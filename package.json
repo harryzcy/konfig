@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "0.1.8",
-    "@cloudflare/vitest-pool-workers": "0.7.5",
+    "@cloudflare/vitest-pool-workers": "0.7.6",
     "@cloudflare/workers-types": "4.20250303.0",
     "@miniflare/shared-test-environment": "2.14.4",
     "@testing-library/jest-dom": "6.6.3",

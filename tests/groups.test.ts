@@ -1,6 +1,5 @@
-import { onRequestGet, onRequestPost } from '../functions/groups'
+import { onRequestGet, onRequestPost } from '../functions/api/groups'
 import { createContext } from './utils'
-import { Env } from '@/types'
 import { createExecutionContext } from 'cloudflare:test'
 import { waitOnExecutionContext } from 'cloudflare:test'
 import { env } from 'cloudflare:test'

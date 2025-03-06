@@ -1,5 +1,5 @@
 import { createContext } from './utils'
-import { onRequestPost } from '@functions/entries'
+import { onRequestPost } from '@functions/api/entries'
 import { createExecutionContext } from 'cloudflare:test'
 import { describe, expect, test } from 'vitest'
 

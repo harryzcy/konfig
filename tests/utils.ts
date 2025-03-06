@@ -22,7 +22,6 @@ export function createContext(
   body: BodyInit | null | undefined,
   headers = {}
 ): Parameters<PagesFunction<Env>>[0] {
-  const params = { slug: 'hello' }
   const data = {}
   return {
     request: new Request(new URL('https://konfig.com' + path), {
@@ -30,7 +29,7 @@ export function createContext(
       body,
       headers
     }),
-    functionPath: '',
+    functionPath: path,
     waitUntil: ctx.waitUntil.bind(ctx),
     passThroughOnException: ctx.passThroughOnException.bind(ctx),
     async next(input, init) {
@@ -46,7 +45,7 @@ export function createContext(
         }
       }
     },
-    params,
+    params: {},
     data
   }
 }

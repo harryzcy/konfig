@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import GroupNav from './GroupNav'
 import '@testing-library/jest-dom'
+import '@testing-library/jest-dom/vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 import user from '@testing-library/user-event'
 import { http, HttpResponse } from 'msw'

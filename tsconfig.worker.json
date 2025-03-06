@@ -1,5 +1,7 @@
 {
+  "extends": "./tsconfig.json",
   "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.worker.tsbuildinfo",
     "target": "ESNext",
     "module": "ESNext",
     "lib": ["ESNext"],
@@ -8,7 +10,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@functions/*": ["./functions/*"]
-    }
+    },
+    "outDir": "./node_modules/.tmp/functions"
   },
   "include": ["functions"]
 }

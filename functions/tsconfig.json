@@ -4,6 +4,9 @@
     "module": "esnext",
     "lib": ["esnext"],
     "moduleResolution": "node",
-    "types": ["@cloudflare/workers-types"]
+    "types": ["@cloudflare/workers-types", "@cloudflare/vitest-pool-workers"],
+    "paths": {
+      "@/*": ["../src/*"]
+    }
   }
 }

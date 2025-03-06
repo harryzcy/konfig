@@ -1,5 +1,3 @@
-process.env = getMiniflareBindings() as any
-
 export function createRequest(
   method: string,
   path: string,

@@ -1,7 +1,7 @@
-export const onRequest: PagesFunction = async () => {
-  return new Response(
-    JSON.stringify({
-      message: 'pong'
-    })
-  )
+import { jsonResponse } from '@/response'
+
+export const onRequestGet: PagesFunction = async () => {
+  return jsonResponse({
+    message: 'pong'
+  })
 }

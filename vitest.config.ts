@@ -8,18 +8,35 @@ export default defineWorkersConfig({
     coverage: {
       provider: 'istanbul'
     },
-    poolOptions: {
-      workers: {
-        wrangler: { configPath: './wrangler.toml' },
-        miniflare: {
-          kvNamespaces: ['CONFIG_KV']
-        }
-      }
-    },
+
     typecheck: {
       enabled: true,
       tsconfig: 'tsconfig.test.json'
-    }
+    },
+    // setupFiles: ['./jest-setup.ts'],
+    workspace: [
+      {
+        extends: true,
+        test: {
+          include: ['tests/*.test.ts', 'tests/**/*.test.ts'],
+          poolOptions: {
+            workers: {
+              wrangler: { configPath: './wrangler.toml' },
+              miniflare: {
+                kvNamespaces: ['CONFIG_KV']
+              }
+            }
+          }
+        }
+      }
+      // {
+      //   extends: true,
+      //   test: {
+      //     include: ['tests/**/*.{node}.test.{ts,js}'],
+      //     environment: 'jsdom'
+      //   }
+      // }
+    ]
   },
   resolve: {
     alias: {

@@ -1,6 +1,6 @@
-import { parseConfigEntry } from '@/parse'
+import { parseConfigEntry } from '@/common/parse'
+import type { ConfigEntry, ConfigValue, Env } from '@/common/types'
 import { errorResponse, successResponse } from '@/response'
-import type { ConfigEntry, ConfigValue, Env } from '@/types'
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   console.log('Handling POST request')

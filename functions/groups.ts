@@ -1,7 +1,12 @@
-import { parseNewGroupRequest } from '@/parse'
+import { parseNewGroupRequest } from '@/common/parse'
+import type {
+  Env,
+  NewGroupRequest,
+  GroupMetadata,
+  GroupValue
+} from '@/common/types'
 import { errorResponse, jsonResponse, successResponse } from '@/response'
 import { getUnixTimestamp } from '@/time'
-import type { Env, NewGroupRequest, GroupMetadata, GroupValue } from '@/types'
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   console.log('Handling GET request')

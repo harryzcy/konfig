@@ -55,8 +55,8 @@ describe('POST /api/groups', () => {
 
   test('invalid json', async () => {
     const ctx = createExecutionContext()
-    const req = createContext(ctx, 'POST', url, 'invalid input')
-    const res = await onRequestPost.call(req)
+    const eventCtx = createContext(ctx, 'POST', url, 'invalid input')
+    const res = await onRequestPost(eventCtx)
     expect(res).toHaveProperty('status', 400)
     expect(await res.text()).toBe(
       '{"error":"invalid input: input is not valid JSON"}'
@@ -70,12 +70,12 @@ describe('POST /api/groups', () => {
 
   test('zod validation failed', async () => {
     const ctx = createExecutionContext()
-    const req = createContext(ctx, 'POST', url, '{}')
-    const res = await onRequestPost.call(req)
+    const eventCtx = createContext(ctx, 'POST', url, '{}')
+    const res = await onRequestPost(eventCtx)
     expect(res).toHaveProperty('status', 400)
-    expect(await res.text()).toBe(
-      '{"error":"invalid input: field name is invalid"}'
-    )
+    const text = await res.text()
+    console.log('text', text)
+    expect(text).toBe('{"error":"invalid input: field name is invalid"}')
     expect(
       await env.CONFIG_KV.list({
         prefix: 'group:'

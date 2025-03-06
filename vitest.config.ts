@@ -26,9 +26,9 @@ export default defineWorkersConfig({
         test: {
           include: ['src/*.test.ts', 'src/**/*.test.ts'],
           environment: 'jsdom',
-          pool: 'forks'
+          pool: 'forks',
+          setupFiles: ['./jest-setup.ts']
         },
-        setupFiles: ['./jest-setup.ts'],
         resolve: {
           alias: {
             '@': new URL('./src/', import.meta.url).pathname

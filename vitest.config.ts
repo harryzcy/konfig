@@ -1,19 +1,45 @@
+// import { defineConfig } from 'vitest/config'
+// export default defineConfig({
+//   plugins: [react()],
+//   test: {
+//     globals: true,
+//     environment: 'miniflare',
+//     environmentOptions: {
+//       kvNamespaces: ['CONFIG_KV']
+//     }
+//   },
+//   resolve: {
+//     alias: {
+//       '@': path.resolve(__dirname)
+//     }
+//   }
+// })
+import { defineWorkersConfig } from '@cloudflare/vitest-pool-workers/config'
 import react from '@vitejs/plugin-react'
-import path from 'path'
-import { defineConfig } from 'vitest/config'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
-export default defineConfig({
-  plugins: [react()],
+export default defineWorkersConfig({
+  plugins: [tsconfigPaths(), react()],
   test: {
-    globals: true,
-    environment: 'miniflare',
-    environmentOptions: {
-      kvNamespaces: ['CONFIG_KV']
+    coverage: {
+      provider: 'istanbul'
+    },
+    poolOptions: {
+      workers: {
+        wrangler: { configPath: './wrangler.toml' },
+        miniflare: {
+          kvNamespaces: ['CONFIG_KV']
+        }
+      }
+    },
+    typecheck: {
+      enabled: true,
+      tsconfig: 'tsconfig.test.json'
     }
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname)
+      '@': new URL('./src/', import.meta.url).pathname
     }
   }
 })

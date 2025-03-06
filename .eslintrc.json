@@ -1,11 +1,8 @@
 {
-  "extends": [
-    "next/core-web-vitals",
-    "plugin:eslint-plugin-next-on-pages/recommended"
-  ],
+  "extends": [],
   "rules": {
     "comma-dangle": ["error", "never"],
     "semi": "off"
   },
-  "plugins": ["eslint-plugin-next-on-pages"]
+  "ignorePatterns": ["node_modules", "dist"]
 }

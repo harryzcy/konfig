@@ -1,4 +1,4 @@
-import { onRequestGet } from './ping'
+import { onRequestGet } from '@functions/ping'
 import {
   env,
   createExecutionContext,

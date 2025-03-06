@@ -6,7 +6,8 @@
     "moduleResolution": "node",
     "types": ["@cloudflare/workers-types", "@cloudflare/vitest-pool-workers"],
     "paths": {
-      "@/*": ["../src/*"]
+      "@/*": ["../src/*"],
+      "@functions/*": ["../functions/*"]
     }
   }
 }

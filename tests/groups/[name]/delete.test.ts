@@ -1,5 +1,5 @@
 import { onRequestPost } from '@functions/api/groups/[name]/delete'
-import { createContext, createRequest } from '@tests/utils'
+import { createContext } from '@tests/utils'
 import { createExecutionContext } from 'cloudflare:test'
 import { env } from 'cloudflare:test'
 import { describe, expect, test } from 'vitest'

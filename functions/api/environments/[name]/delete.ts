@@ -8,8 +8,6 @@ import {
 import { getUnixTimestamp } from '@/common/time'
 import type { Env, EnvironmentMetadata, Key } from '@/common/types'
 
-export const runtime = 'edge'
-
 // Soft delete
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   console.log('Handling POST request')

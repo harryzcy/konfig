@@ -1,8 +1,8 @@
 import { onRequestPost } from '@functions/api/environments/[name]/delete'
-import { createContext, createRequest } from '@tests/utils'
+import { createContext } from '@tests/utils'
 import { createExecutionContext } from 'cloudflare:test'
 import { env } from 'cloudflare:test'
-import { describe, expect, test, vi } from 'vitest'
+import { describe, expect, test } from 'vitest'
 
 describe('POST /api/environments/[name]/delete', () => {
   const url = '/api/environments/production/delete'

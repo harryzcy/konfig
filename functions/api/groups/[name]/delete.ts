@@ -8,8 +8,6 @@ import {
 import { getUnixTimestamp } from '@/common/time'
 import type { Env, GroupMetadata, Key } from '@/common/types'
 
-export const runtime = 'edge'
-
 // Soft delete
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   // url is /api/groups/[name]/delete

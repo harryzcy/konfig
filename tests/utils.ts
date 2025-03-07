@@ -1,19 +1,6 @@
 import { Env } from '@/common/types'
 import { env } from 'cloudflare:test'
 
-export function createRequest(
-  method: string,
-  path: string,
-  body: BodyInit | null | undefined,
-  headers = {}
-) {
-  return new Request(new URL('https://konfig.com' + path), {
-    method,
-    body,
-    headers
-  })
-}
-
 export function createContext(
   ctx: ExecutionContext,
   method: string,

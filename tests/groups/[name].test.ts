@@ -1,5 +1,4 @@
-import { Env } from '@/common/types'
-import { TTL } from '@/constants'
+import { TTL } from '@/common/constants'
 import { onRequestDelete, onRequestGet } from '@functions/api/groups/[name]'
 import { createContext } from '@tests/utils'
 import { env } from 'cloudflare:test'

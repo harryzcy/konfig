@@ -1,6 +1,8 @@
 ### Cloudflare
-wrangler.toml
 .wrangler
+
+# Vite
+dist
 
 ### Visual Studio Code
 .vscode/*

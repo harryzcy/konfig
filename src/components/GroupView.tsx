@@ -1,5 +1,3 @@
-'use client'
-
 import GroupLinkEnvironment from './GroupLinkEnvironment'
 import { Group } from '@/common/types'
 import {

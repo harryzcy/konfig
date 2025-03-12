@@ -12,7 +12,6 @@ import { Input } from '@/components/ui/input'
 import { useOutsideClick } from '@/hooks/useOutsideClick'
 import { PlusIcon } from '@heroicons/react/24/outline'
 import { zodResolver } from '@hookform/resolvers/zod'
-import Link from 'next/link'
 import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import useSWR from 'swr'
@@ -80,7 +79,7 @@ export default function GroupNav() {
       {data?.groups.sort().map((group) => (
         <div key={group} className="">
           <Button variant="outline" asChild className="px-2 w-full">
-            <Link href={`groups/${group}`}>{group}</Link>
+            <a href={`groups/${group}`}>{group}</a>
           </Button>
         </div>
       ))}

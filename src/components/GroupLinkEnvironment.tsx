@@ -1,5 +1,3 @@
-'use client'
-
 import { GroupValue, NewEnvironmentRequest } from '@/common/types'
 import { Button } from '@/components/ui/button'
 import {

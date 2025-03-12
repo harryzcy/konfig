@@ -19,27 +19,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v4.2.0
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v4.0.4
+        uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # v4.2.0
         with:
-          node-version: 20
+          node-version: 22
           check-latest: true
 
       - name: Install Dependencies
         run: npm ci
 
       - name: Build Pages
-        run: npm run pages:build
+        run: npm run build
 
       - name: Publish to Cloudflare Pages
         if: github.event_name == 'push' && github.repository_owner == 'harryzcy' && github.actor != 'dependabot[bot]'
-        uses: cloudflare/wrangler-action@168bc28b7078db16f6f1ecc26477fc2248592143 # v3.8.0
+        uses: cloudflare/wrangler-action@392082e81ffbcb9ebdde27400634aa004b35ea37 # v3.14.0
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy --project-name=konfig .vercel/output/static
+          command: pages deploy --project-name=konfig dist
+          workingDirectory: ./
           wranglerVersion: '3'

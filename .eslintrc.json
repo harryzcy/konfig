@@ -1,8 +1,0 @@
-{
-  "extends": [],
-  "rules": {
-    "comma-dangle": ["error", "never"],
-    "semi": "off"
-  },
-  "ignorePatterns": ["node_modules", "dist"]
-}

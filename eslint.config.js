@@ -1,39 +1,36 @@
 // @ts-check
-
 import eslint from '@eslint/js'
-import tseslint from 'typescript-eslint'
-import nextPlugin from 'eslint-config-next'
-import nextOnPages from 'eslint-plugin-next-on-pages'
+import reactPlugin from 'eslint-plugin-react'
+import tsEslint from 'typescript-eslint'
 
-export default tseslint.config(
+export default tsEslint.config(
   {
-    ignores: ['bin/'],
+    ignores: ['dist/', 'node_modules/']
   },
   eslint.configs.recommended,
-  ...tseslint.configs.strictTypeChecked,
-  ...tseslint.configs.stylisticTypeChecked,
-  {
-    rules: {
-      ...nextPlugin.configs.recommended.rules,
-      ...nextPlugin.configs['core-web-vitals'].rules,
-    },
-  },
-  // @ts-ignore
-  ...nextOnPages.configs.recommended,
+  ...tsEslint.configs.strictTypeChecked,
+  ...tsEslint.configs.stylisticTypeChecked,
+  reactPlugin.configs.flat.recommended,
+  reactPlugin.configs.flat['jsx-runtime'],
   {
     languageOptions: {
       parserOptions: {
         project: true,
         tsconfigRootDir: import.meta.dirname,
-        ecmaVersion: 2020,
-      },
+        ecmaVersion: 2021
+      }
     },
     rules: {
-      semi: [2, 'never'],
+      semi: [2, 'never']
     },
+    settings: {
+      react: {
+        version: 'detect'
+      }
+    }
   },
   {
     files: ['**/*.js'],
-    ...tseslint.configs.disableTypeChecked,
-  },
+    ...tsEslint.configs.disableTypeChecked
+  }
 )

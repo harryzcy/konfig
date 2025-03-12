@@ -20,12 +20,12 @@ import {
   PopoverContent,
   PopoverTrigger
 } from '@/components/ui/popover'
-import { toast } from '@/components/ui/use-toast'
 import { cn } from '@/lib/utils'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/24/outline'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
 import { z } from 'zod'
@@ -122,16 +122,13 @@ export default function GroupLinkEnvironment(props: GroupLinkEnvironmentProps) {
           { name: data.environment },
           {
             onSuccess: () => {
-              toast({
-                title: 'Request successful',
+              toast.success('Request successful', {
                 description: `Environment ${data.environment} created successfully`
               })
             },
             onError: () => {
-              toast({
-                title: 'Request failed',
-                description: `Failed to create environment ${data.environment}, please try again later.`,
-                variant: 'destructive'
+              toast.error('Request failed', {
+                description: `Failed to create environment ${data.environment}, please try again later.`
               })
             }
           }
@@ -147,16 +144,13 @@ export default function GroupLinkEnvironment(props: GroupLinkEnvironmentProps) {
     try {
       await linkTrigger(value, {
         onSuccess: () => {
-          toast({
-            title: 'Request successful',
+          toast.success('Request successful', {
             description: `Environment added to group ${groupName} successfully`
           })
         },
         onError: () => {
-          toast({
-            title: 'Request failed',
-            description: `Failed to add environment to group ${groupName}, please try again later.`,
-            variant: 'destructive'
+          toast.error('Request failed', {
+            description: `Failed to add environment to group ${groupName}, please try again later.`
           })
         }
       })

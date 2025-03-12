@@ -1,9 +1,5 @@
 {
-  "extends": ["github>harryzcy/renovate-config"],
-  "packageRules": [
-    {
-      "groupName": "next-on-pages",
-      "matchPackageNames": ["/next-on-pages/"]
-    }
+  "extends": [
+    "github>harryzcy/renovate-config"
   ]
 }

@@ -55,7 +55,7 @@
     "@vitejs/plugin-react": "4.3.4",
     "@vitest/coverage-istanbul": "3.0.9",
     "eslint": "9.23.0",
-    "eslint-plugin-react": "7.37.4",
+    "eslint-plugin-react": "7.37.5",
     "jsdom": "26.0.0",
     "msw": "2.7.3",
     "prettier": "3.5.3",

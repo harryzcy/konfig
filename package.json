@@ -41,7 +41,7 @@
   "devDependencies": {
     "@cloudflare/vite-plugin": "1.5.0",
     "@cloudflare/vitest-pool-workers": "0.8.36",
-    "@cloudflare/workers-types": "4.20250531.0",
+    "@cloudflare/workers-types": "4.20250607.0",
     "@eslint/js": "9.28.0",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.3.0",

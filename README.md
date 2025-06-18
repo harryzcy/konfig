@@ -9,7 +9,7 @@ The source of truth is hosted on Cloudflare Workers and Pages.
 1. Install dependencies
 
 ```shell
-npm install`
+npm install
 ```
 
 1. Setup Cloudflare project

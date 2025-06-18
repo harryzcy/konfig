@@ -53,7 +53,7 @@
     "@typescript-eslint/eslint-plugin": "8.34.1",
     "@typescript-eslint/parser": "8.34.1",
     "@vitejs/plugin-react": "4.5.2",
-    "@vitest/coverage-istanbul": "3.2.3",
+    "@vitest/coverage-istanbul": "3.2.4",
     "eslint": "9.29.0",
     "eslint-plugin-react": "7.37.5",
     "jsdom": "26.1.0",
@@ -65,7 +65,7 @@
     "typescript-eslint": "8.34.1",
     "vite": "6.3.5",
     "vite-tsconfig-paths": "5.1.4",
-    "vitest": "3.2.3",
+    "vitest": "3.2.4",
     "wrangler": "4.20.1"
   }
 }

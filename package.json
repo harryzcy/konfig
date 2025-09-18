@@ -39,7 +39,7 @@
     "zod": "4.1.9"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "1.13.2",
+    "@cloudflare/vite-plugin": "1.13.3",
     "@cloudflare/vitest-pool-workers": "0.9.2",
     "@cloudflare/workers-types": "4.20250918.0",
     "@eslint/js": "9.35.0",

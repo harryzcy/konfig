@@ -1,7 +1,7 @@
 import { entriesGet, entriesPost } from './api/entries'
 import { environmentsGet, environmentsPost } from './api/environments'
 import { groupsGet, groupsPost } from './api/groups'
-import { Bindings } from './common/types'
+import { Bindings } from './common/bindings'
 import { renderer } from './renderer'
 import { Hono } from 'hono'
 

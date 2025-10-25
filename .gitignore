@@ -1,5 +1,6 @@
 ### Cloudflare
 .wrangler
+worker-configuration.d.ts
 
 # Vite
 dist

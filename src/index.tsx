@@ -1,10 +1,11 @@
 import { entriesGet, entriesPost } from './api/entries'
 import { environmentsGet, environmentsPost } from './api/environments'
 import { groupsGet, groupsPost } from './api/groups'
+import { Bindings } from './common/types'
 import { renderer } from './renderer'
 import { Hono } from 'hono'
 
-const app = new Hono()
+const app = new Hono<{ Bindings: Bindings }>()
 
 app.use(renderer)
 

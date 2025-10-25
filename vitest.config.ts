@@ -29,7 +29,7 @@ export default defineWorkersConfig({
         }
       }
     },
-    workspace: [
+    projects: [
       {
         // Vite code
         test: {

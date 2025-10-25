@@ -3,6 +3,7 @@
 
 # Vite
 dist
+.vite
 
 ### Visual Studio Code
 .vscode/*

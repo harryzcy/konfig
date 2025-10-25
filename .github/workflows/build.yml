@@ -35,12 +35,10 @@ jobs:
       - name: Build Pages
         run: npm run build
 
-      # - name: Publish to Cloudflare Pages
-      #   if: github.event_name == 'push' && github.repository_owner == 'harryzcy' && github.actor != 'dependabot[bot]'
-      #   uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # v3.14.1
-      #   with:
-      #     apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      #     accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      #     command: pages deploy --project-name=konfig dist
-      #     workingDirectory: ./
-      #     wranglerVersion: '3'
+      - name: Publish to Cloudflare Pages
+        if: github.event_name == 'push' && github.repository_owner == 'harryzcy' && github.actor != 'dependabot[bot]'
+        uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # v3.14.1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: ./

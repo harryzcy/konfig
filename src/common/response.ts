@@ -1,5 +1,5 @@
 import { Context } from 'hono'
-import { ContentfulStatusCode, StatusCode } from 'hono/utils/http-status'
+import { ContentfulStatusCode } from 'hono/utils/http-status'
 
 export const successResponse = (c: Context) => {
   return c.json({ message: 'success' })

@@ -23,7 +23,7 @@
     "eslint-plugin-react": "7.37.5",
     "prettier": "^3.6.2",
     "typescript-eslint": "8.46.2",
-    "vite": "6.4.1",
+    "vite": "7.1.12",
     "vite-ssr-components": "0.5.1",
     "wrangler": "4.45.0"
   }

@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "my-app",
+  "name": "konfig",
   "compatibility_date": "2025-08-03",
   "main": "./src/index.tsx"
 }

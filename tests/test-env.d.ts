@@ -1,7 +1,5 @@
-import { Bindings } from './common/bindings'
+import { Bindings } from '../src/common/bindings'
 
 declare module 'cloudflare:test' {
-  interface ProvidedEnv extends Bindings {
-    CONFIG_KV: KVNamespace
-  }
+  interface ProvidedEnv extends Bindings {}
 }

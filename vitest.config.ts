@@ -1,12 +1,12 @@
-// import { defineWorkersConfig } from '@cloudflare/vitest-pool-workers/config'
-import { defineConfig } from 'vitest/config'
+import { defineWorkersConfig } from '@cloudflare/vitest-pool-workers/config'
 
 // import path from 'node:path'
 
 // const assetsPath = path.join(__dirname, 'public')
 
-export default defineConfig({
+export default defineWorkersConfig({
   test: {
+    globals: true,
     coverage: {
       provider: 'istanbul'
     },
@@ -14,23 +14,31 @@ export default defineConfig({
       enabled: true,
       tsconfig: 'tsconfig.test.json'
     },
-    // poolOptions: {
-    //   workers: {
-    //     wrangler: { configPath: './wrangler.jsonc' },
-    //     miniflare: {
-    //       kvNamespaces: ['CONFIG_KV'],
-    //       serviceBindings: {
-    //         ASSERTS: await buildPagesASSETSBinding(assetsPath)
-    //       }
-    //     }
-    //   }
-    // },
+    poolOptions: {
+      workers: {
+        wrangler: { configPath: './wrangler.jsonc' },
+        miniflare: {
+          kvNamespaces: ['CONFIG_KV']
+          // serviceBindings: {
+          //   ASSERTS: await buildPagesASSETSBinding(assetsPath)
+          // }
+        }
+      }
+    },
     projects: [
+      {
+        // Cloudflare Pages Functions code
+        extends: true,
+        test: {
+          include: ['src/api/*.test.ts']
+        }
+        // environments: 'cloudflare-workers'
+      },
       {
         // Vite code
         test: {
-          include: ['src/*.test.ts', 'src/**/*.test.ts']
-          // environment: 'jsdom',
+          include: ['src/*.test.ts', 'src/**/*.test.ts'],
+          environment: 'jsdom'
           // pool: 'forks'
           // setupFiles: ['./jest-setup.ts']
         },
@@ -40,13 +48,6 @@ export default defineConfig({
           }
         }
       }
-      // {
-      //   // Cloudflare Pages Functions code
-      //   extends: true,
-      //   test: {
-      //     include: ['tests/*.test.ts', 'tests/**/*.test.ts']
-      //   }
-      // }
     ]
   },
   resolve: {

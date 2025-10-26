@@ -13,6 +13,8 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
+
+    /* Hono */
     "jsx": "react-jsx",
     "types": ["vite/client"],
     "jsxImportSource": "hono/jsx",

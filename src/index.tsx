@@ -1,4 +1,4 @@
-import { entriesGet, entriesPost } from './api/entries'
+import { entriesPost } from './api/entries'
 import { environmentsGet, environmentsPost } from './api/environments'
 import { groupsGet, groupsPost } from './api/groups'
 import { Bindings } from './common/bindings'
@@ -21,7 +21,6 @@ api.post('/environments', environmentsPost)
 api.get('/groups', groupsGet)
 api.post('/groups', groupsPost)
 
-api.get('/entries', entriesGet)
 api.post('/entries', entriesPost)
 
 api.get('/ping', (c) => {

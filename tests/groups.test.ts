@@ -33,7 +33,6 @@ describe('GET /api/groups', () => {
 describe('POST /api/groups', () => {
   const url = '/api/groups'
   test('success', async () => {
-    // const eventCtx = createContext(ctx, 'POST', url, '{"name":"project-1"}')
     const res = await app.request(
       url,
       {

@@ -1,7 +1,6 @@
 import app from '../src'
-import { env, createExecutionContext } from 'cloudflare:test'
+import { env } from 'cloudflare:test'
 import { describe, expect, test } from 'vitest'
-import { a } from 'vitest/dist/chunks/suite.d.FvehnV49.js'
 
 describe('POST /api/entries', () => {
   const url = '/api/entries'

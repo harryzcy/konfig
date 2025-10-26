@@ -22,14 +22,6 @@ export default defineWorkersConfig({
     },
     projects: [
       {
-        // Cloudflare Pages Functions code
-        extends: true,
-        test: {
-          include: ['src/api/*.test.ts']
-        }
-        // environments: 'cloudflare-workers'
-      },
-      {
         // Vite code
         test: {
           include: ['src/*.test.ts', 'src/**/*.test.ts'],
@@ -41,6 +33,13 @@ export default defineWorkersConfig({
           alias: {
             '@': new URL('./src/', import.meta.url).pathname
           }
+        }
+      },
+      {
+        // Cloudflare Pages Functions code
+        extends: true,
+        test: {
+          include: ['tests/*.test.ts', 'tests/**/*.test.ts']
         }
       }
     ]

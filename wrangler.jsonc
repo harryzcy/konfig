@@ -2,11 +2,5 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "konfig",
   "compatibility_date": "2025-08-03",
-  "main": "./src/index.tsx",
-  "kv_namespaces": [
-    {
-      "binding": "CONFIG_KV",
-      "id": "your-kv-namespace-id"
-    }
-  ]
+  "main": "./src/index.tsx"
 }

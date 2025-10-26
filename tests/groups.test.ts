@@ -2,16 +2,16 @@
 // import { createContext } from './utils'
 // import { createExecutionContext } from 'cloudflare:test'
 // import { waitOnExecutionContext } from 'cloudflare:test'
-import app from '../index'
+import app from '../src/index'
 import { env } from 'cloudflare:test'
-import { describe, test } from 'vitest'
+import { describe, expect, test } from 'vitest'
 
 describe('GET /api/groups', () => {
   const url = '/api/groups'
 
   test('empty', async () => {
     const res = await app.request(url, {}, env)
-    // expect(res).toHaveProperty('status', 200)
+    expect(res).toHaveProperty('status', 200)
 
     // const ctx = createExecutionContext()
     // const eventCtx = createContext(ctx, 'GET', url, null)

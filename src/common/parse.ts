@@ -6,13 +6,14 @@ import {
   EnvironmentValue,
   NewGroupRequest,
   GroupValue
-} from '@/common/types'
+} from '../common/types'
 import { z } from 'zod'
 
 const parseJson = (input: string): unknown => {
-  let json
+  let json: unknown
   try {
     json = JSON.parse(input)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     throw new Error('invalid input: input is not valid JSON')
   }

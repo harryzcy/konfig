@@ -1,4 +1,3 @@
-import { type KVNamespace } from '@cloudflare/workers-types'
 import { z } from 'zod'
 
 export const Key = z.string().refine((value) => {
@@ -55,20 +54,18 @@ export const NewGroupRequest = z.object({
 })
 export type NewGroupRequest = z.infer<typeof NewGroupRequest>
 
+const ConfigType = z.enum(['text', 'json', 'yaml'])
+
 export const ConfigValue = z.object({
-  type: z.enum(['text', 'json', 'yaml']),
+  type: ConfigType,
   value: z.string()
 })
 
 export const ConfigEntry = z.object({
-  type: z.enum(['text', 'json', 'yaml']),
+  type: ConfigType,
   key: Key,
   value: z.string()
 })
 
 export type ConfigEntry = z.infer<typeof ConfigEntry>
 export type ConfigValue = z.infer<typeof ConfigValue>
-
-export type Env = {
-  CONFIG_KV: KVNamespace
-}

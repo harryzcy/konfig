@@ -1,6 +1,13 @@
 import { entriesPost } from './api/entries'
 import { environmentsGet, environmentsPost } from './api/environments'
-import { groupGet, groupHardDelete, groupsGet, groupsPost } from './api/groups'
+import {
+  groupGet,
+  groupHardDelete,
+  groupLink,
+  groupsGet,
+  groupSoftDelete,
+  groupsPost
+} from './api/groups'
 import { Bindings } from './common/bindings'
 import { renderer } from './renderer'
 import { Hono } from 'hono'
@@ -22,6 +29,8 @@ api.get('/groups', groupsGet)
 api.post('/groups', groupsPost)
 api.get('/groups/:name', groupGet)
 api.delete('/groups/:name', groupHardDelete)
+api.post('/groups/:name/delete', groupSoftDelete)
+api.post('/groups/:name/link', groupLink)
 
 api.post('/entries', entriesPost)
 

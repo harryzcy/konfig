@@ -26,7 +26,8 @@ export const parseKey = (input: string): Key => {
     return value
   } catch (e) {
     const error = e as z.ZodError
-    throw new Error(`invalid input: key cannot contain ":" -` + error.message)
+    console.log(error)
+    throw new Error(`invalid input: key cannot contain ":"`)
   }
 }
 

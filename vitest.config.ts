@@ -1,10 +1,8 @@
 import { defineWorkersConfig } from '@cloudflare/vitest-pool-workers/config'
-
-// import path from 'node:path'
-
-// const assetsPath = path.join(__dirname, 'public')
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineWorkersConfig({
+  plugins: [tsconfigPaths()],
   test: {
     globals: true,
     coverage: {
@@ -19,9 +17,6 @@ export default defineWorkersConfig({
         wrangler: { configPath: './wrangler.jsonc' },
         miniflare: {
           kvNamespaces: ['CONFIG_KV']
-          // serviceBindings: {
-          //   ASSERTS: await buildPagesASSETSBinding(assetsPath)
-          // }
         }
       }
     },

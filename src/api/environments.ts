@@ -1,23 +1,23 @@
-import { ContextWithBindings } from '../common/bindings'
+import { ContextWithBindings } from '@/common/bindings'
+import { TTL } from '@/common/constants'
 import {
   parseEnvironmentValue,
   parseKey,
   parseNewEnvironmentRequest
-} from '../common/parse'
+} from '@/common/parse'
 import {
   errorResponse,
   notFoundResponse,
   successResponse
-} from '../common/response'
-import { getUnixTimestamp } from '../common/time'
+} from '@/common/response'
+import { getUnixTimestamp } from '@/common/time'
 import {
   Environment,
   EnvironmentMetadata,
   EnvironmentValue,
   Key,
   NewEnvironmentRequest
-} from '../common/types'
-import { TTL } from '@/common/constants'
+} from '@/common/types'
 
 export const environmentsGet = async (c: ContextWithBindings) => {
   console.log('Handling GET request for environments')

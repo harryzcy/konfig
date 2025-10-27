@@ -1,11 +1,11 @@
-import { entriesPost, entryGet, entryHardDelete } from './api/entries'
+import { entriesPost, entryGet, entryHardDelete } from '@/api/entries'
 import {
   environmentGet,
   environmentHardDelete,
   environmentsGet,
   environmentSoftDelete,
   environmentsPost
-} from './api/environments'
+} from '@/api/environments'
 import {
   groupGet,
   groupHardDelete,
@@ -13,10 +13,10 @@ import {
   groupsGet,
   groupSoftDelete,
   groupsPost
-} from './api/groups'
-import { App } from './app/App'
-import { Bindings } from './common/bindings'
-import { renderer } from './renderer'
+} from '@/api/groups'
+import { App } from '@/app/App'
+import { Bindings } from '@/common/bindings'
+import { renderer } from '@/renderer'
 import { Hono } from 'hono'
 
 const app = new Hono<{ Bindings: Bindings }>()

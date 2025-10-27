@@ -68,3 +68,50 @@ describe('POST /api/environments', () => {
     )
   })
 })
+
+describe('GET /api/environments/[name]', () => {
+  test('empty environment', async () => {
+    await env.CONFIG_KV.put('env:foo', JSON.stringify({ groups: [] }), {
+      metadata: {
+        created: 123
+      }
+    })
+
+    const res = await app.request('/api/environments/foo', {}, env)
+    expect(res).toHaveProperty('status', 200)
+    expect(await res.text()).toBe(
+      '{"name":"foo","metadata":{"created":123},"groups":[]}'
+    )
+  })
+
+  test('non-empty environment', async () => {
+    await env.CONFIG_KV.put(
+      'env:production',
+      JSON.stringify({ groups: ['repo-1'] }),
+      {
+        metadata: {
+          created: 123
+        }
+      }
+    )
+
+    const res = await app.request('/api/environments/production', {}, env)
+    expect(res).toHaveProperty('status', 200)
+    expect(await res.text()).toBe(
+      '{"name":"production","metadata":{"created":123},"groups":["repo-1"]}'
+    )
+  })
+
+  test('404 not found', async () => {
+    const res = await app.request('/api/environments/does-not-exist', {}, env)
+    expect(res).toHaveProperty('status', 404)
+  })
+
+  test('invalid name', async () => {
+    const res = await app.request('/api/environments/invalid:key', {}, env)
+    expect(res).toHaveProperty('status', 400)
+    expect(await res.text()).toBe(
+      '{"error":"invalid input: key cannot contain \\":\\""}'
+    )
+  })
+})

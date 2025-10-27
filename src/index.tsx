@@ -1,5 +1,11 @@
 import { entriesPost } from './api/entries'
-import { environmentsGet, environmentsPost } from './api/environments'
+import {
+  environmentGet,
+  environmentHardDelete,
+  environmentsGet,
+  environmentSoftDelete,
+  environmentsPost
+} from './api/environments'
 import {
   groupGet,
   groupHardDelete,
@@ -24,6 +30,9 @@ const api = new Hono()
 
 api.get('/environments', environmentsGet)
 api.post('/environments', environmentsPost)
+api.get('/environments/:name', environmentGet)
+api.delete('/environments/:name', environmentHardDelete)
+api.post('/environments/:name/delete', environmentSoftDelete)
 
 api.get('/groups', groupsGet)
 api.post('/groups', groupsPost)

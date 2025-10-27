@@ -14,7 +14,9 @@ import {
   groupSoftDelete,
   groupsPost
 } from './api/groups'
+import { App } from './app/App'
 import { Bindings } from './common/bindings'
+import './index.css'
 import { renderer } from './renderer'
 import { Hono } from 'hono'
 
@@ -23,7 +25,7 @@ const app = new Hono<{ Bindings: Bindings }>()
 app.use(renderer)
 
 app.get('/', (c) => {
-  return c.render(<h1>Hello!</h1>)
+  return c.render(App())
 })
 
 const api = new Hono()

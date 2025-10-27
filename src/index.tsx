@@ -1,4 +1,4 @@
-import { entriesPost } from './api/entries'
+import { entriesPost, entryGet, entryHardDelete } from './api/entries'
 import {
   environmentGet,
   environmentHardDelete,
@@ -42,6 +42,8 @@ api.post('/groups/:name/delete', groupSoftDelete)
 api.post('/groups/:name/link', groupLink)
 
 api.post('/entries', entriesPost)
+api.get('/entries/:key', entryGet)
+api.delete('/entries/:key', entryHardDelete)
 
 api.get('/ping', (c) => {
   return c.json({ message: 'pong' })

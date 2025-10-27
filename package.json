@@ -11,10 +11,10 @@
     "prettier": "prettier --config prettier.config.mjs '{app,src,components,lib}/**/*.{ts,tsx,js,css}' --write"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.16",
+    "@tailwindcss/vite": "4.1.16",
     "hono": "4.10.3",
-    "react": "^19.2.0",
-    "tailwindcss": "^4.1.16",
+    "react": "19.2.0",
+    "tailwindcss": "4.1.16",
     "zod": "4.1.12"
   },
   "devDependencies": {

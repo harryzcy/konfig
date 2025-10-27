@@ -1,4 +1,3 @@
-import './App.css'
 import { StrictMode } from 'hono/jsx'
 
 export const App = () => {

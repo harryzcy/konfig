@@ -5,8 +5,6 @@ import react from '@vitejs/plugin-react'
 import path from 'node:path'
 import { defineConfig } from 'vite'
 
-// import ssrPlugin from 'vite-ssr-components/plugin'
-
 export default defineConfig({
   ssr: {
     external: ['react', 'react-dom']
@@ -15,7 +13,6 @@ export default defineConfig({
     react(),
     tailwindcss(),
     cloudflare(),
-    // ssrPlugin(),
     devServer({
       entry: 'src/index.tsx'
     })

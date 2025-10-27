@@ -1,11 +1,11 @@
-import { ContextWithBindings } from '../common/bindings'
-import { parseConfigEntry, parseConfigValue, parseKey } from '../common/parse'
+import { ContextWithBindings } from '@/common/bindings'
+import { parseConfigEntry, parseConfigValue, parseKey } from '@/common/parse'
 import {
   errorResponse,
   notFoundResponse,
   successResponse
-} from '../common/response'
-import { ConfigEntry, ConfigValue, Key } from '../common/types'
+} from '@/common/response'
+import { ConfigEntry, ConfigValue, Key } from '@/common/types'
 
 export const entriesPost = async (c: ContextWithBindings) => {
   console.log('Handling POST request for entries')

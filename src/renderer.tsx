@@ -1,11 +1,11 @@
-import { jsxRenderer } from 'hono/jsx-renderer'
+import { reactRenderer } from '@hono/react-renderer'
 import { Link, ViteClient } from 'vite-ssr-components/hono'
 
-export const renderer = jsxRenderer(({ children }) => {
+export const renderer = reactRenderer(({ children }) => {
   return (
     <html>
       <head>
-        <meta charset="UTF-8" />
+        <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Konfig</title>
         <meta

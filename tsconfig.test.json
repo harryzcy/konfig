@@ -6,7 +6,11 @@
     "types": [
       "@cloudflare/workers-types/experimental",
       "@cloudflare/vitest-pool-workers"
-    ]
+    ],
+    /* Paths */
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
-  "include": ["./**/*.test.ts"]
+  "include": ["tests", "worker-configuration.d.ts"]
 }

@@ -1,4 +1,5 @@
 import { jsxRenderer } from 'hono/jsx-renderer'
+import { Script } from 'honox/server'
 import { Link, ViteClient } from 'vite-ssr-components/hono'
 
 export const renderer = jsxRenderer(({ children }) => {

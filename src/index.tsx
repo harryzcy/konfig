@@ -16,7 +16,6 @@ import {
 } from './api/groups'
 import { App } from './app/App'
 import { Bindings } from './common/bindings'
-import './index.css'
 import { renderer } from './renderer'
 import { Hono } from 'hono'
 

@@ -4,7 +4,10 @@
   "scripts": {
     "dev": "vite",
     "init-manifest": "echo '{}' > ./src/lib/manifest.json",
-    "build": "$npm_execpath run init-manifest && vite build --mode client && cp -f ./dist/.vite/manifest.json ./src/lib/manifest.json && vite build",
+    "cp-manifest": "cp -f ./dist/.vite/manifest.json ./src/lib/manifest.json",
+    "build:client": "vite build --mode client",
+    "build:worker": "vite build",
+    "build": "$npm_execpath run init-manifest && $npm_execpath run build:client && $npm_execpath run cp-manifest && $npm_execpath run build:worker",
     "preview": "$npm_execpath run build && vite preview",
     "deploy": "$npm_execpath run build && wrangler deploy",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",

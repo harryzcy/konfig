@@ -1,5 +1,4 @@
 import { reactRenderer } from '@hono/react-renderer'
-import { Link, ViteClient } from 'vite-ssr-components/hono'
 
 export const renderer = reactRenderer(({ children }) => {
   return (
@@ -12,8 +11,7 @@ export const renderer = reactRenderer(({ children }) => {
           name="description"
           content="Centralized configuration infrastructure"
         />
-        <ViteClient />
-        <Link href="/src/style.css" rel="stylesheet" />
+        <link href="/src/style.css" rel="stylesheet" />
       </head>
       <body>{children}</body>
     </html>

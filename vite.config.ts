@@ -1,6 +1,7 @@
 import { cloudflare } from '@cloudflare/vite-plugin'
 import build from '@hono/vite-build/cloudflare-workers'
 import devServer from '@hono/vite-dev-server'
+import adapter from '@hono/vite-dev-server/cloudflare'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import path from 'node:path'
@@ -18,6 +19,7 @@ export default defineConfig({
     tailwindcss(),
     cloudflare(),
     devServer({
+      adapter,
       entry: 'src/index.tsx'
     })
   ],

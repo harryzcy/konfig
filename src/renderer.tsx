@@ -8,9 +8,9 @@ export const renderer: MiddlewareHandler = async (c, next) => {
 
   const cssDoms: React.ReactNode[] = []
 
-  for (const [key, value] of Object.entries(manifest)) {
+  for (const [, value] of Object.entries(manifest)) {
     if (!value.isEntry) continue
-    if (value.css) {
+    if (value.css && value.css.length > 0) {
       for (const cssFile of value.css) {
         cssDoms.push(
           <link key={cssFile} rel="stylesheet" href={`/${cssFile}`} />

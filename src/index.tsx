@@ -27,7 +27,7 @@ app.get('/', (c) => {
   return c.render(App())
 })
 app.get('/assets/*', async (c) => {
-  const assetPath = c.req.param('*')
+  const assetPath = c.req.path
   const asset = await c.env.ASSERTS.get(assetPath)
   if (!asset) {
     return c.notFound()

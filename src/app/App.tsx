@@ -1,9 +1,16 @@
+import GroupEmpty from '@/components/GroupEmpty'
+import SideBar from '@/components/SideBar'
+import { Toaster } from '@/components/ui/sonner'
 import { StrictMode } from 'react'
 
 export const App = () => {
   return (
     <StrictMode>
-      <h1 className="text-3xl font-bold underline">Hello!</h1>
+      <div className="min-h-screen flex">
+        <SideBar />
+        <GroupEmpty />
+        <Toaster />
+      </div>
     </StrictMode>
   )
 }

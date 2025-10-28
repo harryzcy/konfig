@@ -33,7 +33,7 @@ export const renderer: MiddlewareHandler = async (c, next) => {
             name="description"
             content="Centralized configuration infrastructure"
           />
-          <link href="/src/style.css" rel="stylesheet" />
+          {cssDoms}
         </head>
         <body>{children}</body>
       </html>

@@ -1,4 +1,4 @@
-import { StrictMode } from 'hono/jsx'
+import { StrictMode } from 'react'
 
 export const App = () => {
   return (

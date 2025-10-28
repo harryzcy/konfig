@@ -22,7 +22,7 @@
       "@cloudflare/workers-types/experimental",
       "@cloudflare/vitest-pool-workers"
     ],
-    "jsxImportSource": "hono/jsx",
+    "jsxImportSource": "react",
 
     /* Linting */
     "strict": true,

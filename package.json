@@ -3,7 +3,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --mode client && cp -f ./dist/.vite/manifest.json ./src/lib/manifest.json && vite build",
+    "init-manifest": "echo '{}' > ./src/lib/manifest.json",
+    "build": "$npm_execpath run init-manifest && vite build --mode client && cp -f ./dist/.vite/manifest.json ./src/lib/manifest.json && vite build",
     "preview": "$npm_execpath run build && vite preview",
     "deploy": "$npm_execpath run build && wrangler deploy",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",

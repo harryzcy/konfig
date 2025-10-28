@@ -26,6 +26,14 @@ app.use(renderer)
 app.get('/', (c) => {
   return c.render(App())
 })
+app.get('/assets/*', async (c) => {
+  const assetPath = c.req.param('*')
+  const asset = await c.env.ASSERTS.get(assetPath)
+  if (!asset) {
+    return c.notFound()
+  }
+  return c.body(asset)
+})
 
 const api = new Hono()
 

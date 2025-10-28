@@ -11,7 +11,7 @@ export const renderer = reactRenderer(({ children }) => {
           name="description"
           content="Centralized configuration infrastructure"
         />
-        <link href="./style.css" rel="stylesheet" />
+        <link href="/src/style.css" rel="stylesheet" />
       </head>
       <body>{children}</body>
     </html>

@@ -12,10 +12,12 @@ export function useOutsideClick(
       if (Array.isArray(refs)) {
         let contained = false
         refs.forEach((ref) => {
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           if (!ref.current || ref.current.contains(event.target as Node)) {
             contained = true
           }
         })
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (!contained) {
           callback()
         }

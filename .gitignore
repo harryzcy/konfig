@@ -6,6 +6,9 @@ worker-configuration.d.ts
 dist
 .vite
 
+# Manifest file
+src/lib/manifest.json
+
 ### Visual Studio Code
 .vscode/*
 !.vscode/settings.json

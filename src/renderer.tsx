@@ -1,7 +1,25 @@
+import manifest from './lib/manifest.json'
 import { reactRenderer } from '@hono/react-renderer'
+import { MiddlewareHandler } from 'hono'
+import React from 'react'
 
-export const renderer = reactRenderer(
-  ({ children }) => {
+export const renderer: MiddlewareHandler = async (c, next) => {
+  console.log('Renderer manifest:', manifest)
+
+  const cssDoms: React.ReactNode[] = []
+
+  for (const [key, value] of Object.entries(manifest)) {
+    if (!value.isEntry) continue
+    if (value.css) {
+      for (const cssFile of value.css) {
+        cssDoms.push(
+          <link key={cssFile} rel="stylesheet" href={`/${cssFile}`} />
+        )
+      }
+    }
+  }
+
+  const renderDOM = reactRenderer(({ children }) => {
     return (
       <html>
         <head>
@@ -20,8 +38,6 @@ export const renderer = reactRenderer(
         <body>{children}</body>
       </html>
     )
-  },
-  {
-    stream: true
-  }
-)
+  })
+  await renderDOM(c, next)
+}

@@ -1,4 +1,3 @@
-import './style.css'
 import { entriesPost, entryGet, entryHardDelete } from '@/api/entries'
 import {
   environmentGet,

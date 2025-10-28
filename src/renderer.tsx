@@ -1,12 +1,7 @@
 import { reactRenderer } from '@hono/react-renderer'
-import { css, Style } from 'hono/css'
 
 export const renderer = reactRenderer(
   ({ children }) => {
-    const globalClass = css`
-      @import 'tailwindcss';
-    `
-
     return (
       <html>
         <head>
@@ -21,7 +16,6 @@ export const renderer = reactRenderer(
             content="Centralized configuration infrastructure"
           />
           <link href="/src/style.css" rel="stylesheet" />
-          <Style>{globalClass}</Style>
         </head>
         <body>{children}</body>
       </html>

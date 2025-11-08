@@ -21,8 +21,7 @@ import { Hono } from 'hono'
 
 const app = new Hono<{ Bindings: Bindings }>()
 
-app.use(renderer)
-
+app.use('/', renderer)
 app.get('/', (c) => {
   return c.render(App())
 })

@@ -21,15 +21,6 @@ import { Hono } from 'hono'
 
 const app = new Hono<{ Bindings: Bindings }>()
 
-app.get('/assets/*', async (c) => {
-  const assetPath = c.req.path
-  const asset = await c.env.ASSERTS.get(assetPath)
-  if (!asset) {
-    return c.notFound()
-  }
-  return c.body(asset)
-})
-
 app.use('/', renderer)
 app.get('/', (c) => {
   return c.render(App())

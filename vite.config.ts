@@ -57,12 +57,10 @@ export default defineConfig(({ command, mode }) => {
     ssr: {
       external: ['react', 'react-dom']
     },
-    build: {
-      manifest: false
-    },
     plugins: [
       build({
-        entry: 'src/index.tsx'
+        entry: 'src/index.tsx',
+        outputDir: 'dist-server'
       }),
       react(),
       tailwindcss()

@@ -14,7 +14,10 @@ export default defineConfig(({ mode }) => {
         manifest: true,
         assetsDir: 'static',
         rollupOptions: {
-          input: './src/client.tsx'
+          input: './src/client.tsx',
+          output: {
+            dir: 'client-dist'
+          }
         }
       },
       resolve: {

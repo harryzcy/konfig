@@ -54,9 +54,9 @@ export default defineConfig(({ command, mode }) => {
   }
 
   return {
-    ssr: {
-      external: ['react', 'react-dom']
-    },
+    // ssr: {
+    //   external: ['react', 'react-dom']
+    // },
     plugins: [
       build({
         entry: 'src/index.tsx',

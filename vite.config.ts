@@ -63,8 +63,8 @@ export default defineConfig(({ command, mode }) => {
         outputDir: 'dist-server'
       }),
       react(),
-      tailwindcss()
-      // cloudflare()
+      tailwindcss(),
+      cloudflare()
     ],
     resolve
   }

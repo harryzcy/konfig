@@ -1,3 +1,4 @@
+import { renderer } from './renderer'
 import { entriesPost, entryGet, entryHardDelete } from '@/api/entries'
 import {
   environmentGet,
@@ -14,16 +15,17 @@ import {
   groupSoftDelete,
   groupsPost
 } from '@/api/groups'
-import { App } from '@/app/App'
-import { Bindings } from '@/common/bindings'
-import { renderer } from '@/renderer'
+// import { App } from '@/app/App'
+// import { Bindings } from '@/common/bindings'
+
 import { Hono } from 'hono'
 
-const app = new Hono<{ Bindings: Bindings }>()
+const app = new Hono()
 
-app.use('/', renderer)
+app.use(renderer)
+
 app.get('/', (c) => {
-  return c.render(App())
+  return c.render(<h1 className="underline">Hello!</h1>)
 })
 
 const api = new Hono()

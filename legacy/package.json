@@ -57,7 +57,7 @@
     "eslint": "9.39.1",
     "eslint-plugin-react": "7.37.5",
     "jsdom": "27.2.0",
-    "msw": "2.12.3",
+    "msw": "2.12.4",
     "prettier": "3.7.4",
     "prettier-plugin-tailwindcss": "0.7.2",
     "tailwindcss": "4.1.17",

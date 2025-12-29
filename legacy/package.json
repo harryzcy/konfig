@@ -56,7 +56,7 @@
     "@vitest/coverage-istanbul": "3.2.4",
     "eslint": "9.39.2",
     "eslint-plugin-react": "7.37.5",
-    "jsdom": "27.3.0",
+    "jsdom": "27.4.0",
     "msw": "2.12.4",
     "prettier": "3.7.4",
     "prettier-plugin-tailwindcss": "0.7.2",

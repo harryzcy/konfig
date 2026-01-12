@@ -39,7 +39,7 @@
   "devDependencies": {
     "@cloudflare/vite-plugin": "1.20.1",
     "@cloudflare/vitest-pool-workers": "0.12.1",
-    "@cloudflare/workers-types": "4.20260108.0",
+    "@cloudflare/workers-types": "4.20260109.0",
     "@eslint/js": "9.39.2",
     "@hono/vite-build": "1.8.0",
     "@hono/vite-dev-server": "0.24.0",

@@ -11,7 +11,10 @@ export const renderer = reactRenderer(({ children }) => {
           name="description"
           content="Centralized configuration infrastructure"
         />
-        <link href="/src/style.css" rel="stylesheet" />
+        <link
+          href={import.meta.env.PROD ? `/assets/style.css` : `/src/style.css`}
+          rel="stylesheet"
+        />
       </head>
       <body>{children}</body>
     </html>

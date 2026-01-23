@@ -44,7 +44,7 @@
     "@hono/vite-build": "1.9.1",
     "@hono/vite-dev-server": "0.24.1",
     "@testing-library/jest-dom": "6.9.1",
-    "@testing-library/react": "16.3.1",
+    "@testing-library/react": "16.3.2",
     "@testing-library/user-event": "14.6.1",
     "@trivago/prettier-plugin-sort-imports": "6.0.2",
     "@types/node": "24.10.9",

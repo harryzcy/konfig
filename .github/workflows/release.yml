@@ -14,4 +14,4 @@ jobs:
     if: github.repository_owner == 'harryzcy'
     permissions:
       contents: write
-    uses: harryzcy/github-actions/.github/workflows/release.yml@main
+    uses: harryzcy/github-actions/.github/workflows/release.yml@2e73e1de26f548a8108b79de2f91ce5fae210bb2 # main

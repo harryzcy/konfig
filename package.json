@@ -51,7 +51,7 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "5.1.4",
-    "@vitest/coverage-istanbul": "3.2.4",
+    "@vitest/coverage-istanbul": "4.0.18",
     "eslint": "9.39.3",
     "eslint-plugin-react": "7.37.5",
     "jsdom": "28.1.0",
@@ -61,7 +61,7 @@
     "typescript-eslint": "8.56.1",
     "vite": "7.3.1",
     "vite-tsconfig-paths": "6.1.1",
-    "vitest": "3.2.4",
+    "vitest": "4.0.18",
     "wrangler": "4.67.0"
   }
 }

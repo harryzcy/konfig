@@ -1,10 +1,8 @@
 import { cloudflareTest } from '@cloudflare/vitest-pool-workers'
-import tsconfigPaths from 'vite-tsconfig-paths'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   plugins: [
-    tsconfigPaths(),
     cloudflareTest({
       wrangler: { configPath: './wrangler.jsonc' },
       miniflare: {
@@ -48,6 +46,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': new URL('./src/', import.meta.url).pathname
-    }
+    },
+    tsconfigPaths: true
   }
 })

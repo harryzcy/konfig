@@ -1,5 +1,5 @@
 import { Env } from '@/common/types'
-import { env } from 'cloudflare:test'
+import { env } from 'cloudflare:workers'
 
 export function createContext(
   ctx: ExecutionContext,

@@ -1,9 +1,6 @@
 import { onRequestGet } from '@functions/api/ping'
-import {
-  env,
-  createExecutionContext,
-  waitOnExecutionContext
-} from 'cloudflare:test'
+import { createExecutionContext, waitOnExecutionContext } from 'cloudflare:test'
+import { env } from 'cloudflare:workers'
 import { test, expect } from 'vitest'
 
 test('GET /api/ping', async () => {

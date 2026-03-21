@@ -1,6 +1,6 @@
 import app from '../src'
 import { TTL } from '../src/common/constants'
-import { env } from 'cloudflare:test'
+import { env } from 'cloudflare:workers'
 import { describe, expect, test } from 'vitest'
 
 describe('GET /api/environments', () => {

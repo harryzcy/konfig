@@ -1,5 +1,5 @@
 import app from '../src'
-import { env } from 'cloudflare:test'
+import { env } from 'cloudflare:workers'
 import { describe, expect, test } from 'vitest'
 
 describe('POST /api/entries', () => {

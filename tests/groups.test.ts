@@ -1,6 +1,6 @@
 import { TTL } from '../src/common/constants'
 import app from '../src/index'
-import { env } from 'cloudflare:test'
+import { env } from 'cloudflare:workers'
 import { describe, expect, test } from 'vitest'
 
 describe('GET /api/groups', () => {
@@ -234,20 +234,24 @@ describe('DELETE /api/groups/[name]', () => {
 })
 
 describe('POST /api/groups/[name]/delete', () => {
-  const url = '/api/groups/foo/delete'
+  const url = '/api/groups/foo2/delete'
 
   test('success', async () => {
-    await env.CONFIG_KV.put('group:foo', JSON.stringify({ environments: [] }), {
-      metadata: {
-        created: 123
+    await env.CONFIG_KV.put(
+      'group:foo2',
+      JSON.stringify({ environments: [] }),
+      {
+        metadata: {
+          created: 123
+        }
       }
-    })
+    )
 
     const res = await app.request(url, { method: 'POST' }, env)
     expect(res.status).toBe(200)
     expect(await res.text()).toBe('{"message":"success"}')
-    expect(await env.CONFIG_KV.get('group:foo')).toBe('{"environments":[]}')
-    expect(await env.CONFIG_KV.getWithMetadata('group:foo')).toHaveProperty(
+    expect(await env.CONFIG_KV.get('group:foo2')).toBe('{"environments":[]}')
+    expect(await env.CONFIG_KV.getWithMetadata('group:foo2')).toHaveProperty(
       'metadata.deleted'
     )
 
@@ -255,13 +259,13 @@ describe('POST /api/groups/[name]/delete', () => {
     const resAgain = await app.request(url, { method: 'POST' }, env)
     expect(resAgain).toHaveProperty('status', 400)
     expect(await resAgain.text()).toBe(
-      '{"error":"Group foo is already soft deleted"}'
+      '{"error":"Group foo2 is already soft deleted"}'
     )
   })
 
   test('has keys', async () => {
     await env.CONFIG_KV.put(
-      'group:foo',
+      'group:foo2',
       JSON.stringify({ environments: ['staging'] }),
       {
         metadata: {
@@ -269,20 +273,20 @@ describe('POST /api/groups/[name]/delete', () => {
         }
       }
     )
-    await env.CONFIG_KV.put('entry:foo:staging:bar', 'baz')
+    await env.CONFIG_KV.put('entry:foo2:staging:bar', 'baz')
 
     const res = await app.request(url, { method: 'POST' }, env)
     expect(res).toHaveProperty('status', 400)
-    expect(await res.text()).toBe('{"error":"Group foo still has keys"}')
-    expect(await env.CONFIG_KV.get('group:foo')).toBe(
+    expect(await res.text()).toBe('{"error":"Group foo2 still has keys"}')
+    expect(await env.CONFIG_KV.get('group:foo2')).toBe(
       '{"environments":["staging"]}'
     )
-    expect(await env.CONFIG_KV.get('entry:foo:staging:bar')).toBe('baz')
+    expect(await env.CONFIG_KV.get('entry:foo2:staging:bar')).toBe('baz')
   })
 
   test('has multiple keys', async () => {
     await env.CONFIG_KV.put(
-      'group:foo',
+      'group:foo2',
       JSON.stringify({ environments: ['production', 'staging', 'demo'] }),
       {
         metadata: {
@@ -290,13 +294,13 @@ describe('POST /api/groups/[name]/delete', () => {
         }
       }
     )
-    await env.CONFIG_KV.put('entry:foo:staging:bar', 'baz')
-    await env.CONFIG_KV.put('entry:foo:production:bar', 'baz')
+    await env.CONFIG_KV.put('entry:foo2:staging:bar', 'baz')
+    await env.CONFIG_KV.put('entry:foo2:production:bar', 'baz')
 
     const res = await app.request(url, { method: 'POST' }, env)
     expect(res).toHaveProperty('status', 400)
-    expect(await res.text()).toBe('{"error":"Group foo still has keys"}')
-    expect(await env.CONFIG_KV.get('group:foo')).toBe(
+    expect(await res.text()).toBe('{"error":"Group foo2 still has keys"}')
+    expect(await env.CONFIG_KV.get('group:foo2')).toBe(
       '{"environments":["production","staging","demo"]}'
     )
   })

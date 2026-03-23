@@ -1,8 +1,15 @@
-import { defineWorkersConfig } from '@cloudflare/vitest-pool-workers/config'
-import tsconfigPaths from 'vite-tsconfig-paths'
+import { cloudflareTest } from '@cloudflare/vitest-pool-workers'
+import { defineConfig } from 'vitest/config'
 
-export default defineWorkersConfig({
-  plugins: [tsconfigPaths()],
+export default defineConfig({
+  plugins: [
+    cloudflareTest({
+      wrangler: { configPath: './wrangler.jsonc' },
+      miniflare: {
+        kvNamespaces: ['CONFIG_KV']
+      }
+    })
+  ],
   test: {
     globals: true,
     coverage: {
@@ -11,14 +18,6 @@ export default defineWorkersConfig({
     typecheck: {
       enabled: true,
       tsconfig: 'tsconfig.test.json'
-    },
-    poolOptions: {
-      workers: {
-        wrangler: { configPath: './wrangler.jsonc' },
-        miniflare: {
-          kvNamespaces: ['CONFIG_KV']
-        }
-      }
     },
     projects: [
       {
@@ -47,6 +46,7 @@ export default defineWorkersConfig({
   resolve: {
     alias: {
       '@': new URL('./src/', import.meta.url).pathname
-    }
+    },
+    tsconfigPaths: true
   }
 })

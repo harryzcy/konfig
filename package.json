@@ -37,7 +37,7 @@
     "zod": "4.3.6"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "1.29.1",
+    "@cloudflare/vite-plugin": "1.30.0",
     "@cloudflare/vitest-pool-workers": "0.13.3",
     "@cloudflare/workers-types": "4.20260317.1",
     "@eslint/js": "9.39.4",
@@ -54,13 +54,13 @@
     "@vitest/coverage-istanbul": "4.1.1",
     "eslint": "9.39.4",
     "eslint-plugin-react": "7.37.5",
-    "jsdom": "29.0.0",
+    "jsdom": "29.0.1",
     "msw": "2.12.13",
     "prettier": "3.8.1",
     "prettier-plugin-tailwindcss": "0.7.2",
     "typescript-eslint": "8.57.1",
     "vite": "8.0.1",
     "vitest": "4.1.1",
-    "wrangler": "4.75.0"
+    "wrangler": "4.76.0"
   }
 }

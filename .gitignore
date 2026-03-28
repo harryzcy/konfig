@@ -5,6 +5,11 @@ worker-configuration.d.ts
 # Vite
 dist
 .vite
+client-dist
+public/static
+
+# Manifest file
+src/lib/manifest.json
 
 ### Visual Studio Code
 .vscode/*

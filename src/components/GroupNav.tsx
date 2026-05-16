@@ -68,6 +68,7 @@ export default function GroupNav() {
         <NewGroupForm
           create={(group) => {
             const original = data?.groups ?? []
+            // eslint-disable-next-line @typescript-eslint/no-floating-promises
             mutate({ groups: [...original, group] })
           }}
           cancel={() => {
@@ -129,7 +130,7 @@ function NewGroupForm(props: {
 
   return (
     <Form {...newGroupForm}>
-      <form onSubmit={newGroupForm.handleSubmit(onSubmit)} ref={formRef}>
+      <form onSubmit={() => newGroupForm.handleSubmit(onSubmit)} ref={formRef}>
         <FormField
           control={newGroupForm.control}
           name="group"

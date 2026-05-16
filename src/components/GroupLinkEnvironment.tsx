@@ -135,6 +135,7 @@ export default function GroupLinkEnvironment(props: GroupLinkEnvironmentProps) {
           }
         )
       } catch (error) {
+        console.error('Failed to create new environment', error)
         return
       }
     }
@@ -156,6 +157,7 @@ export default function GroupLinkEnvironment(props: GroupLinkEnvironmentProps) {
         }
       })
     } catch (error) {
+      console.error('Failed to link environment to group', error)
       return
     }
   }
@@ -169,7 +171,7 @@ export default function GroupLinkEnvironment(props: GroupLinkEnvironmentProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={() => form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
           name="environment"

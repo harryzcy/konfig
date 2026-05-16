@@ -26,15 +26,17 @@ const NewGroupFormSchema = z.object({
 })
 
 export default function GroupNav() {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { data, error, isLoading, mutate } = useSWR(
     '/api/groups',
     async (url) => {
       const res = await fetch(url)
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
       return (await res.json()) as GroupListResponse
     }
   )
 
-  const [isDraftActive, setIsDraftActive] = useState<boolean>(false)
+  const [isDraftActive, setIsDraftActive] = useState(false)
 
   return (
     <div className="p-4">

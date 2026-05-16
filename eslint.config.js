@@ -21,7 +21,8 @@ export default defineConfig(
             'prettier.config.mjs',
             'tests/*/*.ts',
             'vitest.config.ts'
-          ]
+          ],
+          defaultProject: 'tsconfig.json'
         },
         tsconfigRootDir: import.meta.dirname,
         ecmaVersion: 2024

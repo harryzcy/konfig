@@ -19,6 +19,7 @@ export default function GroupView(props: GroupViewProps) {
 
   const {
     data: group,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     error,
     isLoading
   } = useSWR(`/api/groups/${groupName}`, async (url) => {

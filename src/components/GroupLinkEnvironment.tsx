@@ -38,6 +38,7 @@ interface GroupLinkEnvironmentProps {
 export default function GroupLinkEnvironment(props: GroupLinkEnvironmentProps) {
   const { groupName, currentEnvironments } = props
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { data, error, isLoading } = useSWR(
     `/api/environments`,
     async (url) => {

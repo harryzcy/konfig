@@ -17,11 +17,7 @@ export default defineConfig(
     languageOptions: {
       parserOptions: {
         projectService: {
-          allowDefaultProject: [
-            'prettier.config.mjs',
-            'tests/*/*.ts',
-            'vitest.config.ts'
-          ],
+          allowDefaultProject: ['tests/*/*.ts'],
           defaultProject: 'tsconfig.json'
         },
         tsconfigRootDir: import.meta.dirname,

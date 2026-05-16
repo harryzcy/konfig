@@ -48,7 +48,7 @@ export default function GroupView(props: GroupViewProps) {
         {!isLoading && !error && (
           <GroupViewEnvironmentsMenu
             groupName={groupName}
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            // eslint-disable-next-line
             environments={group?.environments!}
           />
         )}
@@ -67,6 +67,7 @@ export function GroupViewEnvironmentsMenu(
 ) {
   const { groupName, environments } = props
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!environments || environments.length === 0) {
     return (
       <Dialog>

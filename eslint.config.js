@@ -16,7 +16,13 @@ export default defineConfig(
   {
     languageOptions: {
       parserOptions: {
-        projectService: true,
+        projectService: {
+          allowDefaultProject: [
+            'prettier.config.mjs',
+            'tests/*/*.ts',
+            'vitest.config.ts'
+          ]
+        },
         tsconfigRootDir: import.meta.dirname,
         ecmaVersion: 2024
       }

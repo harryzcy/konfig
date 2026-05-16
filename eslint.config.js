@@ -16,10 +16,7 @@ export default defineConfig(
   {
     languageOptions: {
       parserOptions: {
-        projectService: {
-          allowDefaultProject: ['tests/*/*.ts'],
-          defaultProject: 'tsconfig.json'
-        },
+        projectService: true,
         tsconfigRootDir: import.meta.dirname,
         ecmaVersion: 2024
       }

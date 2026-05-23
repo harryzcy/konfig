@@ -25,12 +25,12 @@
     "@tailwindcss/vite": "4.3.0",
     "class-variance-authority": "0.7.1",
     "cmdk": "1.1.1",
-    "hono": "4.12.18",
-    "lucide-react": "1.14.0",
+    "hono": "4.12.21",
+    "lucide-react": "1.16.0",
     "next-themes": "0.4.6",
     "react": "19.2.6",
     "react-dom": "19.2.6",
-    "react-hook-form": "7.75.0",
+    "react-hook-form": "7.76.0",
     "sonner": "2.0.7",
     "swr": "2.4.1",
     "tailwind-merge": "3.6.0",
@@ -38,9 +38,9 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "1.36.4",
-    "@cloudflare/vitest-pool-workers": "0.16.4",
-    "@cloudflare/workers-types": "4.20260511.1",
+    "@cloudflare/vite-plugin": "1.37.2",
+    "@cloudflare/vitest-pool-workers": "0.16.7",
+    "@cloudflare/workers-types": "4.20260520.1",
     "@eslint/js": "9.39.4",
     "@hono/vite-build": "1.11.1",
     "@hono/vite-dev-server": "0.25.3",
@@ -49,9 +49,9 @@
     "@testing-library/user-event": "14.6.1",
     "@trivago/prettier-plugin-sort-imports": "6.0.2",
     "@types/node": "24.12.4",
-    "@types/react": "19.2.14",
+    "@types/react": "19.2.15",
     "@types/react-dom": "19.2.3",
-    "@vitejs/plugin-react": "6.0.1",
+    "@vitejs/plugin-react": "6.0.2",
     "@vitest/coverage-istanbul": "4.1.6",
     "eslint": "9.39.4",
     "eslint-plugin-react": "7.37.5",
@@ -59,9 +59,9 @@
     "msw": "2.14.6",
     "prettier": "3.8.3",
     "prettier-plugin-tailwindcss": "0.8.0",
-    "typescript-eslint": "8.59.3",
-    "vite": "8.0.12",
+    "typescript-eslint": "8.59.4",
+    "vite": "8.0.13",
     "vitest": "4.1.6",
-    "wrangler": "4.90.1"
+    "wrangler": "4.92.0"
   }
 }

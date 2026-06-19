@@ -18,10 +18,10 @@ export const entriesPost = async (c: ContextWithBindings) => {
     return errorResponse(c, error)
   }
 
-  const value = {
+  const value: ConfigValue = {
     type: entry.type,
     value: entry.value
-  } as ConfigValue
+  }
 
   console.log(`Storing key entry:${entry.key} in KV`)
   await c.env.CONFIG_KV.put(`entry:${entry.key}`, JSON.stringify(value))
@@ -52,7 +52,7 @@ export const entryGet = async (c: ContextWithBindings) => {
   console.log(`Found key entry:${key} in KV`)
 
   const value = parseConfigValue(raw)
-  const entry = { ...value, key } as ConfigEntry
+  const entry: ConfigEntry = { ...value, key }
   console.log(`Returning key entry:${key} from KV`)
 
   return c.json(entry)

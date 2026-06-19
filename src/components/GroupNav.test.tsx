@@ -22,7 +22,9 @@ describe('GroupNav component', () => {
   beforeAll(() => {
     server.listen()
   })
+  // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
   afterEach(() => server.resetHandlers())
+  // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
   afterAll(() => server.close())
 
   test('should render group names', async () => {

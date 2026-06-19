@@ -17,6 +17,10 @@ jobs:
   super-linter:
     name: Super Linter
     uses: harryzcy/github-actions/.github/workflows/linter.yml@0689912da8c292ec56a951f3f4834dd83b6269d3 # main
+  
+  npm-lint:
+    name: NPM Lint
+    uses: harryzcy/github-actions/.github/workflows/npm-lint.yml@0689912da8c292ec56a951f3f4834dd83b6269d3 # main
 
   prettier:
     name: Prettier

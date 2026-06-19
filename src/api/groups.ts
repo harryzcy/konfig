@@ -269,7 +269,7 @@ export const groupLink = async (c: ContextWithBindings) => {
   const previousGroupValue = parseGroupValue(groupRaw)
 
   console.log(`Updating key ${groupKey}`)
-  const newGroupValue = {
+  const newGroupValue: GroupValue = {
     ...groupValue,
     environments: [
       ...new Set([
@@ -277,7 +277,7 @@ export const groupLink = async (c: ContextWithBindings) => {
         ...groupValue.environments
       ])
     ]
-  } as GroupValue
+  }
   await c.env.CONFIG_KV.put(groupKey, JSON.stringify(newGroupValue), {
     metadata: groupMetadata
   })
@@ -287,10 +287,10 @@ export const groupLink = async (c: ContextWithBindings) => {
     const environmentKey = `env:${environmentName}`
     console.log(`Updating key ${environmentKey}`)
     const { value, metadata } = environmentValues[environmentName]
-    const environmentValue = {
+    const environmentValue: EnvironmentValue = {
       ...value,
       groups: [...new Set([...value.groups, groupName])]
-    } as EnvironmentValue
+    }
     await c.env.CONFIG_KV.put(
       environmentKey,
       JSON.stringify(environmentValue),

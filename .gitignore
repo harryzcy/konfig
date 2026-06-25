@@ -5,6 +5,7 @@ worker-configuration.d.ts
 # Vite
 dist
 .vite
+dist-server/
 
 ### Visual Studio Code
 .vscode/*

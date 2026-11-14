@@ -16,8 +16,8 @@ permissions:
 jobs:
   super-linter:
     name: Super Linter
-    uses: harryzcy/github-actions/.github/workflows/linter.yml@02fc72c25755dac3a0c635b1e4d48ea549639eec # main
+    uses: harryzcy/github-actions/.github/workflows/linter.yml@79a4cd8c212b2b3b4600387355eda5af20a47b80 # main
 
   prettier:
     name: Prettier
-    uses: harryzcy/github-actions/.github/workflows/prettier.yml@02fc72c25755dac3a0c635b1e4d48ea549639eec # main
+    uses: harryzcy/github-actions/.github/workflows/prettier.yml@79a4cd8c212b2b3b4600387355eda5af20a47b80 # main
